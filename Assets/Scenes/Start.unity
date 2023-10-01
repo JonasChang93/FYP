@@ -919,7 +919,7 @@ GameObject:
   - component: {fileID: 949951429}
   - component: {fileID: 949951428}
   m_Layer: 0
-  m_Name: GM
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
