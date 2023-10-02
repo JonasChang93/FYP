@@ -8,10 +8,22 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public class SaveLoadManager : MonoBehaviour
 {
-    public Text timeUI;
-    public Transform car;
-    float time;
-    float lastSaveTime;
+    public AudioSource audioSource;
+    public Toggle toggle;
+    public Slider slider;
+
+    float bgmVolume;
+    bool bgmMute;
+
+    public float mouseX = 5f;
+    public float mouseY = 5f;
+
+    public static SaveLoadManager instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -25,45 +37,58 @@ public class SaveLoadManager : MonoBehaviour
 
     }
 
-    void SaveGame()
+    public void SaveSetting()
     {
         BinaryFormatter binaryFormatter = new BinaryFormatter();
-        FileStream file = File.Create("./SaveDate.dat");
+        FileStream file = File.Create("./SavedSetting.dat");
         SaveData saveData = new SaveData();
-        saveData.time = time;
-        saveData.carX = car.position.x;
-        saveData.carX = car.position.y;
-        saveData.carX = car.position.z;
+
+        bgmVolume = audioSource.volume;
+        bgmMute = audioSource.mute;
+
+        saveData.bgmVolume = bgmVolume;
+        saveData.bgmMute = bgmMute;
+
         binaryFormatter.Serialize(file, saveData);
         file.Close();
 
         PlayerPrefs.Save();
 
-        Debug.Log("Game saved!");
+        Debug.Log("Setting saved!");
     }
 
-    void LoadGame()
+    public void LoadSetting()
     {
-        if (File.Exists("./SaveDate.dat"))
+        if (File.Exists("./SavedSetting.dat"))
         {
             BinaryFormatter binaryFormatter = new BinaryFormatter();
-            FileStream file = File.Open("./SaveDate.dat", FileMode.Open);
+            FileStream file = File.Open("./SavedSetting.dat", FileMode.Open);
             SaveData saveData = (SaveData)binaryFormatter.Deserialize(file);
-            time = saveData.time;
-            lastSaveTime = time;
 
-            car.position = new Vector3(0f, 0.66f, 0f);
+            bgmVolume = saveData.bgmVolume;
+            bgmMute = saveData.bgmMute;
 
-            Debug.Log("No saved game! New game started");
+            audioSource.volume = bgmVolume;
+            audioSource.mute = bgmMute;
+
+            Debug.Log("Setting loaded!");
         }
+
+        Debug.Log("No setting!");
+    }
+
+    public void CancelSetting()
+    {
+        slider.value = bgmVolume;
+        toggle.isOn = bgmMute;
     }
 }
 
     [Serializable]
     class SaveData
     {
-        public float time;
-        public float carX;
-        public float carY;
-        public float carZ;
+        public float bgmVolume;
+        public bool bgmMute;
+        public float mouseX;
+        public float mouseY;
     }

@@ -15,15 +15,25 @@ public class PlayerController : MonoBehaviour
     bool isGrounded;
     float currentRotationAngle = 0.0f;
 
-    public float movingSpeed = 10f;
-    public float rotatingSpeed = 5f;
-    public float jumpForce = 10f;
+    float movingSpeed = 10f;
+    float rotatingSpeed = 5f;
+    float rotatingSpeedX;
+    float rotatingSpeedY;
+    float jumpForce = 10f;
 
     // Start is called before the first frame update
     void Start()
     {
         characterController = GetComponent<CharacterController>();
         playerAnimator = GetComponent<PlayerAnimator>();
+
+        LoadData();
+    }
+
+    void LoadData()
+    {
+        rotatingSpeedX = SaveLoadManager.instance.mouseX;
+        rotatingSpeedY = SaveLoadManager.instance.mouseY;
     }
 
     // Update is called once per frame
@@ -91,17 +101,17 @@ public class PlayerController : MonoBehaviour
     void CameraRotation()
     {
         mainCamera.transform.Rotate(0f, 0f, ClampAngle(Input.GetAxis("Mouse Y")));
-        transform.Rotate(0f, Input.GetAxis("Mouse X") * rotatingSpeed, 0f);
+        transform.Rotate(0f, Input.GetAxis("Mouse X") * rotatingSpeedX, 0f);
     }
     float ClampAngle(float input)
     {
         float xRotation = mainCamera.localEulerAngles.z;
 
-        if (xRotation + input * rotatingSpeed <= 90f || xRotation + input * rotatingSpeed >= 270f)
+        if (xRotation + input * rotatingSpeedY <= 90f || xRotation + input * rotatingSpeedY >= 270f)
         {
-            return input * rotatingSpeed;
+            return input * rotatingSpeedY;
         }
-        else if (xRotation + input * rotatingSpeed > 90 && xRotation + input * rotatingSpeed < 180)
+        else if (xRotation + input * rotatingSpeedY > 90 && xRotation + input * rotatingSpeedY < 180)
         {
             Debug.Log("90");
             return 90f - xRotation;
