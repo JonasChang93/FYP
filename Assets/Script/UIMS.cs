@@ -7,9 +7,7 @@ public class UIMS : MonoBehaviour
 {
     public GameObject black;
     public GameObject btnGroup;
-    //public Transform startBtn;
-    //public Transform settingBtn;
-    public GameObject dialog;
+    public GameObject settingDialogue;
 
     void Start()
     {
@@ -46,15 +44,16 @@ public class UIMS : MonoBehaviour
     public void OpenDialog()
     {
         btnGroup.GetComponent<Animator>().SetBool("isOnclick", true);
-        //startBtn.GetComponent<Animator>().SetBool("isOnclick", true);
-        //settingBtn.GetComponent<Animator>().SetBool("isOnclick", true);
-        dialog.GetComponent<Animator>().SetBool("isOnclick", true);
+        settingDialogue.GetComponent<Animator>().SetBool("isOnclick", true);
     }
     public void CloseDialog()
     {
         btnGroup.GetComponent<Animator>().SetBool("isOnclick", false);
-        //startBtn.GetComponent<Animator>().SetBool("isOnclick", false);
-        //settingBtn.GetComponent<Animator>().SetBool("isOnclick", false);
-        dialog.GetComponent<Animator>().SetBool("isOnclick", false);
+        settingDialogue.GetComponent<Animator>().SetBool("isOnclick", false);
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 }

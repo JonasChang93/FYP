@@ -17,8 +17,6 @@ public class PlayerController : MonoBehaviour
 
     float movingSpeed = 10f;
     float rotatingSpeed = 5f;
-    float rotatingSpeedX;
-    float rotatingSpeedY;
     float jumpForce = 10f;
 
     // Start is called before the first frame update
@@ -26,14 +24,6 @@ public class PlayerController : MonoBehaviour
     {
         characterController = GetComponent<CharacterController>();
         playerAnimator = GetComponent<PlayerAnimator>();
-
-        LoadData();
-    }
-
-    void LoadData()
-    {
-        rotatingSpeedX = SaveLoadManager.instance.mouseX;
-        rotatingSpeedY = SaveLoadManager.instance.mouseY;
     }
 
     // Update is called once per frame
@@ -101,17 +91,18 @@ public class PlayerController : MonoBehaviour
     void CameraRotation()
     {
         mainCamera.transform.Rotate(0f, 0f, ClampAngle(Input.GetAxis("Mouse Y")));
-        transform.Rotate(0f, Input.GetAxis("Mouse X") * rotatingSpeedX, 0f);
+        transform.Rotate(0f, Input.GetAxis("Mouse X") * rotatingSpeed * SaveLoadManager.instance.offsetX, 0f);
     }
     float ClampAngle(float input)
     {
         float xRotation = mainCamera.localEulerAngles.z;
-
-        if (xRotation + input * rotatingSpeedY <= 90f || xRotation + input * rotatingSpeedY >= 270f)
+        float finalSpeed = input * rotatingSpeed * SaveLoadManager.instance.offsetY;
+        
+        if (xRotation + finalSpeed <= 90f || xRotation + finalSpeed >= 270f)
         {
-            return input * rotatingSpeedY;
+            return finalSpeed;
         }
-        else if (xRotation + input * rotatingSpeedY > 90 && xRotation + input * rotatingSpeedY < 180)
+        else if (xRotation + finalSpeed > 90 && xRotation + finalSpeed < 180)
         {
             Debug.Log("90");
             return 90f - xRotation;

@@ -7,25 +7,21 @@ public class UIMG : MonoBehaviour
 {
     public GameObject black;
     public GameObject escapeDialogue;
-    public Transform settingDialoggue;
-    public Animator menuPanel;
-    public Animator gear;
-    public RectTransform inventoryPanel;
+    public GameObject settingDialogue;
 
     void Start()
     {
-        black.SetActive(true);
-        black.GetComponent<Animator>().SetBool("blackIn", true);
-
-        //Wait 1s to load scene
-        StartCoroutine(TranS2());
+        StartCoroutine(BlackIn());
     }
 
-    IEnumerator TranS2()
+    IEnumerator BlackIn()
     {
+        black.SetActive(true);
+
+        black.GetComponent<Animator>().SetBool("black", true);
+
         yield return new WaitForSeconds(1);
 
-        //It will turn back to animator start
         black.SetActive(false);
     }
 
@@ -36,34 +32,19 @@ public class UIMG : MonoBehaviour
         {
             escapeDialogue.SetActive(!escapeDialogue.activeSelf);
         }
-
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            if(inventoryPanel.pivot == new Vector2(0.5f, 0f))
-            {
-                inventoryPanel.pivot = new Vector2(0.5f, 0.5f);
-                inventoryPanel.anchorMax = new Vector2(0.5f, 0.5f);
-                inventoryPanel.anchorMin = new Vector2(0.5f, 0.5f);
-            }
-            else
-            {
-                inventoryPanel.pivot = new Vector2(0.5f, 0f);
-                inventoryPanel.anchorMax = new Vector2(0.5f, 1f);
-                inventoryPanel.anchorMin = new Vector2(0.5f, 1f);
-            }
-        }
     }
 
     //Restart button
     public void RestartGame()
     {
         black.SetActive(true);
-        black.GetComponent<Animator>().SetBool("blackOut", true);
 
-        StartCoroutine(TranS());
+        black.GetComponent<Animator>().SetBool("black", false);
+
+        StartCoroutine(LoadScene());
     }
 
-    IEnumerator TranS()
+    IEnumerator LoadScene()
     {
         yield return new WaitForSeconds(1);
 
@@ -71,27 +52,19 @@ public class UIMG : MonoBehaviour
     }
 
     //Open close setting menu
-    public void OpenS()
+    public void OpenDialog()
     {
-        settingDialoggue.GetComponent<Animator>().SetBool("isOnclick", true);
+        settingDialogue.GetComponent<Animator>().SetBool("isOnclick", true);
     }
 
-    public void CloseS()
+    public void CloseDialog()
     {
-        settingDialoggue.GetComponent<Animator>().SetBool("isOnclick", false);
+        settingDialogue.GetComponent<Animator>().SetBool("isOnclick", false);
     }
 
     //Quit button
     public void Quit()
     {
         Application.Quit();
-    }
-
-    //Silde up down panel 
-    public void OpenCloseMenu()
-    {
-        //Use inverse value
-        menuPanel.SetBool(("slideUp"), !menuPanel.GetBool("slideUp"));
-        gear.SetBool(("slideUp"), !gear.GetBool("slideUp"));
     }
 }
