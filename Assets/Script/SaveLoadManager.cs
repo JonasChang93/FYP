@@ -11,14 +11,9 @@ public class SaveLoadManager : MonoBehaviour
     AudioSource audioSource;
     Toggle audioToggle;
     Slider audioSlider;
-    Toggle offsetX_toggle;
-    Toggle offsetY_toggle;
 
     float bgmVolume;
     bool bgmMute;
-
-    [HideInInspector] public float offsetX = 1;
-    [HideInInspector] public float offsetY = 1;
 
     public static SaveLoadManager instance;
 
@@ -33,14 +28,12 @@ public class SaveLoadManager : MonoBehaviour
         audioSource = GameObject.Find("Main Camera").GetComponent<AudioSource>();
         audioToggle = GameObject.Find("Audio").GetComponentInChildren<Toggle>();
         audioSlider = GameObject.Find("Audio").GetComponentInChildren<Slider>();
-        offsetX_toggle = GameObject.Find("ReverseHorizontal").GetComponentInChildren<Toggle>();
-        offsetY_toggle = GameObject.Find("ReverseVertical").GetComponentInChildren<Toggle>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(offsetY);
+        
     }
 
     public void SaveSetting()
@@ -52,8 +45,6 @@ public class SaveLoadManager : MonoBehaviour
         bgmVolume = audioSource.volume;
         bgmMute = audioSource.mute;
 
-        saveData.offsetX = offsetX;
-        saveData.offsetY = offsetY;
         saveData.bgmVolume = bgmVolume;
         saveData.bgmMute = bgmMute;
 
@@ -75,8 +66,6 @@ public class SaveLoadManager : MonoBehaviour
 
             bgmVolume = saveData.bgmVolume;
             bgmMute = saveData.bgmMute;
-            offsetX = saveData.offsetX;
-            offsetY = saveData.offsetY;
 
             audioSource.volume = bgmVolume;
             audioSource.mute = bgmMute;
@@ -95,32 +84,6 @@ public class SaveLoadManager : MonoBehaviour
     {
         audioSlider.value = bgmVolume;
         audioToggle.isOn = bgmMute;
-        offsetX_toggle.isOn = offsetX > 0 ? false : true;
-        offsetY_toggle.isOn = offsetY > 0 ? false : true;
-    }
-
-    public void CheckOrNotOffsetY(bool isOn)
-    {
-        if (isOn == true)
-        {
-            offsetY = -1;
-        }
-        else
-        {
-            offsetY = 1;
-        }
-    }
-
-    public void CheckOrNotOffsetX(bool isOn)
-    {
-        if (isOn == true)
-        {
-            offsetX = -1;
-        }
-        else
-        {
-            offsetX = 1;
-        }
     }
 }
 
@@ -129,6 +92,4 @@ public class SaveLoadManager : MonoBehaviour
     {
         public float bgmVolume;
         public bool bgmMute;
-        public float offsetX;
-        public float offsetY;
     }

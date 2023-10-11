@@ -9,14 +9,12 @@ public class PlayerController : MonoBehaviour
 
     Vector3 veloctity;
 
-    public Transform mainCamera;
     public Transform model;
+    public Camera mainCamera;
 
     bool isGrounded;
-    float currentRotationAngle = 0.0f;
-
     float movingSpeed = 10f;
-    float rotatingSpeed = 5f;
+    float rotatingSpeed = 10f;
     float jumpForce = 10f;
 
     // Start is called before the first frame update
@@ -32,7 +30,6 @@ public class PlayerController : MonoBehaviour
         Move();
         Jump();
         ModelRotation();
-        CameraRotation();
     }
 
     void Move()
@@ -71,47 +68,15 @@ public class PlayerController : MonoBehaviour
 
     void ModelRotation()
     {
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
-        float verticalInput = Input.GetAxisRaw("Vertical");
-        
-        float targetRotationAngle = Mathf.Atan2(horizontalInput, verticalInput) * Mathf.Rad2Deg;
+        Vector3 mousePosition = Input.mousePosition;
 
-        float angleDifference = targetRotationAngle - currentRotationAngle;
+        Vector3 mouseDirection = mousePosition - mainCamera.WorldToScreenPoint(model.position);
 
-        currentRotationAngle += angleDifference;
+        float targetRotationAngle = Mathf.Atan2(mouseDirection.x, mouseDirection.y) * Mathf.Rad2Deg;
 
-        Quaternion targetRotation = Quaternion.Euler(0, currentRotationAngle, 0);
+        Quaternion targetRotation = Quaternion.Euler(0, targetRotationAngle, 0);
 
-        if(Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
-        {
-            model.localRotation = Quaternion.Slerp(model.localRotation, targetRotation, rotatingSpeed * Time.deltaTime);
-        }
-    }
-
-    void CameraRotation()
-    {
-        mainCamera.transform.Rotate(0f, 0f, ClampAngle(Input.GetAxis("Mouse Y")));
-        transform.Rotate(0f, Input.GetAxis("Mouse X") * rotatingSpeed * SaveLoadManager.instance.offsetX, 0f);
-    }
-    float ClampAngle(float input)
-    {
-        float xRotation = mainCamera.localEulerAngles.z;
-        float finalSpeed = input * rotatingSpeed * SaveLoadManager.instance.offsetY;
-        
-        if (xRotation + finalSpeed <= 90f || xRotation + finalSpeed >= 270f)
-        {
-            return finalSpeed;
-        }
-        else if (xRotation + finalSpeed > 90 && xRotation + finalSpeed < 180)
-        {
-            Debug.Log("90");
-            return 90f - xRotation;
-        }
-        else
-        {
-            Debug.Log("270");
-            return 270f - xRotation;
-        }
+        model.rotation = Quaternion.Slerp(model.rotation, targetRotation, rotatingSpeed * Time.deltaTime);
     }
 
     void OnTriggerStay(Collider other)
