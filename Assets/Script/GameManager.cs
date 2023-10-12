@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
 
     void SceneEvent()
     {
+        Screen.SetResolution(1920, 1080, false);
+
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
             SaveLoadManager.instance.SaveSetting();

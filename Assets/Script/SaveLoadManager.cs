@@ -11,9 +11,11 @@ public class SaveLoadManager : MonoBehaviour
     AudioSource audioSource;
     Toggle audioToggle;
     Slider audioSlider;
+    Dropdown resolutionDropdown;
 
     float bgmVolume;
     bool bgmMute;
+    int dropdownIndex;
 
     public static SaveLoadManager instance;
 
@@ -28,6 +30,7 @@ public class SaveLoadManager : MonoBehaviour
         audioSource = GameObject.Find("Main Camera").GetComponent<AudioSource>();
         audioToggle = GameObject.Find("Audio").GetComponentInChildren<Toggle>();
         audioSlider = GameObject.Find("Audio").GetComponentInChildren<Slider>();
+        resolutionDropdown = GameObject.Find("Resolution").GetComponentInChildren<Dropdown>();
     }
 
     // Update is called once per frame
@@ -44,9 +47,11 @@ public class SaveLoadManager : MonoBehaviour
 
         bgmVolume = audioSource.volume;
         bgmMute = audioSource.mute;
+        dropdownIndex = resolutionDropdown.value;
 
         saveData.bgmVolume = bgmVolume;
         saveData.bgmMute = bgmMute;
+        saveData.dropdownIndex = dropdownIndex;
 
         binaryFormatter.Serialize(file, saveData);
         file.Close();
@@ -66,9 +71,11 @@ public class SaveLoadManager : MonoBehaviour
 
             bgmVolume = saveData.bgmVolume;
             bgmMute = saveData.bgmMute;
+            dropdownIndex = saveData.dropdownIndex;
 
             audioSource.volume = bgmVolume;
             audioSource.mute = bgmMute;
+            ResolutionDropdown(dropdownIndex);
 
             Debug.Log("Setting loaded!");
         }
@@ -84,6 +91,44 @@ public class SaveLoadManager : MonoBehaviour
     {
         audioSlider.value = bgmVolume;
         audioToggle.isOn = bgmMute;
+        resolutionDropdown.value = dropdownIndex;
+    }
+
+    public void DropdownIndex(int option)
+    {
+        dropdownIndex = option;
+
+        ResolutionDropdown(option);
+    }
+
+    public void ResolutionDropdown(int option)
+    {
+        int screenWidth;
+        int screenHeight;
+
+        switch (option)
+        {
+            case 0:
+                screenWidth = 1920;
+                screenHeight = 1080;
+                break;
+            case 1:
+                screenWidth = 2560;
+                screenHeight = 1440;
+                break;
+            case 2:
+                screenWidth = 1280;
+                screenHeight = 720;
+                break;
+            default:
+                screenWidth = 1920;
+                screenHeight = 1080;
+                break;
+        }
+
+        Screen.SetResolution(screenWidth, screenHeight, false);
+        Debug.Log(screenWidth);
+        Debug.Log(screenHeight);
     }
 }
 
@@ -92,4 +137,5 @@ public class SaveLoadManager : MonoBehaviour
     {
         public float bgmVolume;
         public bool bgmMute;
-    }
+        public int dropdownIndex;
+}
