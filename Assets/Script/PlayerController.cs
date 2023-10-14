@@ -12,10 +12,13 @@ public class PlayerController : MonoBehaviour
     public Transform model;
     public Camera mainCamera;
 
+    bool onOff = true;
     bool isGrounded;
-    float movingSpeed = 10f;
-    float rotatingSpeed = 10f;
-    float jumpForce = 10f;
+    float movingSpeed = 10;
+    float rotatingSpeed = 10;
+    float jumpForce = 5;
+    float currentRotationAngle;
+    float groundedCounter;
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +32,7 @@ public class PlayerController : MonoBehaviour
     {
         Move();
         Jump();
-        ModelRotation();
+        ModelRotation1();
     }
 
     void Move()
@@ -50,8 +53,6 @@ public class PlayerController : MonoBehaviour
             playerAnimator.Jumping();
         }
 
-        characterController.Move(veloctity * Time.deltaTime);
-
         if (isGrounded)
         {
             veloctity.y = 0f;
@@ -64,9 +65,54 @@ public class PlayerController : MonoBehaviour
 
             playerAnimator.Falling();
         }
+
+        characterController.Move(veloctity * Time.deltaTime);
     }
 
-    void ModelRotation()
+    // Rotate when you WASD
+    void ModelRotation1()
+    {
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        float verticalInput = Input.GetAxisRaw("Vertical");
+
+        float targetRotationAngle = Mathf.Atan2(horizontalInput, verticalInput) * Mathf.Rad2Deg;
+
+        float angleDifference = targetRotationAngle - currentRotationAngle;
+
+        currentRotationAngle += angleDifference;
+
+        Quaternion targetRotation = Quaternion.Euler(0, currentRotationAngle, 0);
+
+        if (!Input.GetKey(KeyCode.Mouse0))
+        {
+            if (onOff)
+            {
+                if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
+                {
+                    model.localRotation = Quaternion.Slerp(model.localRotation, targetRotation, rotatingSpeed * Time.deltaTime);
+                }
+            }
+        }
+        else
+        {
+            if (onOff)
+            {
+                StartCoroutine(WaitForRotate());
+            }
+        }
+    }
+
+    // Attack delay
+    IEnumerator WaitForRotate()
+    {
+        onOff = false;
+        ModelRotation2();
+        yield return new WaitForSeconds(1);
+        onOff = true;
+    }
+
+    // Rotate when you click
+    void ModelRotation2()
     {
         Vector3 mousePosition = Input.mousePosition;
 
@@ -76,13 +122,14 @@ public class PlayerController : MonoBehaviour
 
         Quaternion targetRotation = Quaternion.Euler(0, targetRotationAngle, 0);
 
-        model.rotation = Quaternion.Slerp(model.rotation, targetRotation, rotatingSpeed * Time.deltaTime);
+        model.rotation = targetRotation;
     }
 
-    void OnTriggerStay(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         if (other.gameObject != gameObject)
         {
+            groundedCounter += 1;
             isGrounded = true;
         }
     }
@@ -91,7 +138,12 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject != gameObject)
         {
-            isGrounded = false;
+            groundedCounter -= 1;
+
+            if (groundedCounter <= 0)
+            {
+                isGrounded = false;
+            }
         }
     }
 }

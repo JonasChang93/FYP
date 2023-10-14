@@ -127,8 +127,6 @@ public class SaveLoadManager : MonoBehaviour
         }
 
         Screen.SetResolution(screenWidth, screenHeight, false);
-        Debug.Log(screenWidth);
-        Debug.Log(screenHeight);
     }
 }
 
