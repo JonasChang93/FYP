@@ -77,6 +77,9 @@ public class SaveLoadManager : MonoBehaviour
             audioSource.mute = bgmMute;
             ResolutionDropdown(dropdownIndex);
 
+            file.Close();
+            CancelSetting();
+
             Debug.Log("Setting loaded!");
         }
         else

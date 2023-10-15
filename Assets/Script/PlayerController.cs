@@ -138,7 +138,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject != gameObject)
         {
-            groundedCounter -= 1;
+            groundedCounter += -1;
 
             if (groundedCounter <= 0)
             {
