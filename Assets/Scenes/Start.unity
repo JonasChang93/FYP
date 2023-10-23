@@ -1028,6 +1028,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cde38e53fb580b046847b6624e09f9b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offsetX: 1
+  offsetY: 1
 --- !u!114 &949951431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1291,7 +1293,7 @@ GameObject:
   - component: {fileID: 1502133497}
   - component: {fileID: 1502133500}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: MainCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2185,6 +2187,10 @@ PrefabInstance:
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 949951430}
+    - target: {fileID: 8003388206205734832, guid: fb4630a314f9b5943aecbf55ecd1879d, type: 3}
+      propertyPath: m_IsOn
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8171354955621572931, guid: fb4630a314f9b5943aecbf55ecd1879d, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0

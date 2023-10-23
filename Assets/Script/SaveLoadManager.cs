@@ -12,25 +12,33 @@ public class SaveLoadManager : MonoBehaviour
     Toggle audioToggle;
     Slider audioSlider;
     Dropdown resolutionDropdown;
+    Toggle offsetX_toggle;
+    Toggle offsetY_toggle;
 
     float bgmVolume;
     bool bgmMute;
     int dropdownIndex;
+
+    [HideInInspector] public float offsetX = 1;
+    [HideInInspector] public float offsetY = 1;
 
     public static SaveLoadManager instance;
 
     private void Awake()
     {
         instance = this;
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        audioSource = GameObject.Find("Main Camera").GetComponent<AudioSource>();
+        audioSource = GameObject.Find("MainCamera").GetComponent<AudioSource>();
         audioToggle = GameObject.Find("Audio").GetComponentInChildren<Toggle>();
         audioSlider = GameObject.Find("Audio").GetComponentInChildren<Slider>();
         resolutionDropdown = GameObject.Find("Resolution").GetComponentInChildren<Dropdown>();
+        offsetX_toggle = GameObject.Find("ReverseHorizontal").GetComponentInChildren<Toggle>();
+        offsetY_toggle = GameObject.Find("ReverseVertical").GetComponentInChildren<Toggle>();
     }
 
     // Update is called once per frame
@@ -45,6 +53,8 @@ public class SaveLoadManager : MonoBehaviour
         FileStream file = File.Create("./SavedSetting.dat");
         SaveData saveData = new SaveData();
 
+        saveData.offsetX = offsetX;
+        saveData.offsetY = offsetY;
         bgmVolume = audioSource.volume;
         bgmMute = audioSource.mute;
         dropdownIndex = resolutionDropdown.value;
@@ -72,6 +82,8 @@ public class SaveLoadManager : MonoBehaviour
             bgmVolume = saveData.bgmVolume;
             bgmMute = saveData.bgmMute;
             dropdownIndex = saveData.dropdownIndex;
+            offsetX = saveData.offsetX;
+            offsetY = saveData.offsetY;
 
             audioSource.volume = bgmVolume;
             audioSource.mute = bgmMute;
@@ -95,6 +107,32 @@ public class SaveLoadManager : MonoBehaviour
         audioSlider.value = bgmVolume;
         audioToggle.isOn = bgmMute;
         resolutionDropdown.value = dropdownIndex;
+        offsetX_toggle.isOn = offsetX > 0 ? false : true;
+        offsetY_toggle.isOn = offsetY > 0 ? false : true;
+    }
+
+    public void CheckOrNotOffsetY(bool isOn)
+    {
+        if (isOn == true)
+        {
+            offsetY = -1;
+        }
+        else
+        {
+            offsetY = 1;
+        }
+    }
+
+    public void CheckOrNotOffsetX(bool isOn)
+    {
+        if (isOn == true)
+        {
+            offsetX = -1;
+        }
+        else
+        {
+            offsetX = 1;
+        }
     }
 
     public void DropdownIndex(int option)
@@ -133,10 +171,12 @@ public class SaveLoadManager : MonoBehaviour
     }
 }
 
-    [Serializable]
-    class SaveData
-    {
-        public float bgmVolume;
-        public bool bgmMute;
-        public int dropdownIndex;
+[Serializable]
+class SaveData
+{
+    public float bgmVolume;
+    public bool bgmMute;
+    public int dropdownIndex;
+    public float offsetX;
+    public float offsetY;
 }

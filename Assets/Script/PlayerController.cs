@@ -10,9 +10,8 @@ public class PlayerController : MonoBehaviour
     Vector3 veloctity;
 
     public Transform model;
-    public Camera mainCamera;
+    public Transform mainCameraParent;
 
-    bool onOff = true;
     bool isGrounded;
     float movingSpeed = 10;
     float rotatingSpeed = 10;
@@ -32,7 +31,8 @@ public class PlayerController : MonoBehaviour
     {
         Move();
         Jump();
-        ModelRotation1();
+        ModelRotation();
+        CameraRotation();
     }
 
     void Move()
@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Rotate when you WASD
-    void ModelRotation1()
+    void ModelRotation()
     {
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");
@@ -83,46 +83,38 @@ public class PlayerController : MonoBehaviour
 
         Quaternion targetRotation = Quaternion.Euler(0, currentRotationAngle, 0);
 
-        if (!Input.GetKey(KeyCode.Mouse0))
+        if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
         {
-            if (onOff)
-            {
-                if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
-                {
-                    model.localRotation = Quaternion.Slerp(model.localRotation, targetRotation, rotatingSpeed * Time.deltaTime);
-                }
-            }
+            model.localRotation = Quaternion.Slerp(model.localRotation, targetRotation, rotatingSpeed * Time.deltaTime);
+        }
+    }
+
+    void CameraRotation()
+    {
+        mainCameraParent.Rotate(0f, 0f, ClampAngle(Input.GetAxis("Mouse Y")));
+        transform.Rotate(0f, Input.GetAxis("Mouse X") * rotatingSpeed * SaveLoadManager.instance.offsetX, 0f);
+    }
+
+    //Clamp angle before rotate
+    float ClampAngle(float input)
+    {
+        float xRotation = mainCameraParent.localEulerAngles.z;
+        float finalSpeed = input * rotatingSpeed * SaveLoadManager.instance.offsetY;
+
+        if (xRotation + finalSpeed <= 90f || xRotation + finalSpeed >= 270f)
+        {
+            return finalSpeed;
+        }
+        else if (xRotation + finalSpeed > 90 && xRotation + finalSpeed < 180)
+        {
+            Debug.Log("90");
+            return 90f - xRotation;
         }
         else
         {
-            if (onOff)
-            {
-                StartCoroutine(WaitForRotate());
-            }
+            Debug.Log("270");
+            return 270f - xRotation;
         }
-    }
-
-    // Attack delay
-    IEnumerator WaitForRotate()
-    {
-        onOff = false;
-        ModelRotation2();
-        yield return new WaitForSeconds(1);
-        onOff = true;
-    }
-
-    // Rotate when you click
-    void ModelRotation2()
-    {
-        Vector3 mousePosition = Input.mousePosition;
-
-        Vector3 mouseDirection = mousePosition - mainCamera.WorldToScreenPoint(model.position);
-
-        float targetRotationAngle = Mathf.Atan2(mouseDirection.x, mouseDirection.y) * Mathf.Rad2Deg;
-
-        Quaternion targetRotation = Quaternion.Euler(0, targetRotationAngle, 0);
-
-        model.rotation = targetRotation;
     }
 
     void OnTriggerEnter(Collider other)
