@@ -53,8 +53,6 @@ public class SaveLoadManager : MonoBehaviour
         FileStream file = File.Create("./SavedSetting.dat");
         SaveData saveData = new SaveData();
 
-        saveData.offsetX = offsetX;
-        saveData.offsetY = offsetY;
         bgmVolume = audioSource.volume;
         bgmMute = audioSource.mute;
         dropdownIndex = resolutionDropdown.value;
@@ -62,6 +60,8 @@ public class SaveLoadManager : MonoBehaviour
         saveData.bgmVolume = bgmVolume;
         saveData.bgmMute = bgmMute;
         saveData.dropdownIndex = dropdownIndex;
+        saveData.offsetX = offsetX;
+        saveData.offsetY = offsetY;
 
         binaryFormatter.Serialize(file, saveData);
         file.Close();

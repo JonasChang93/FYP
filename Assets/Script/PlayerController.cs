@@ -10,7 +10,8 @@ public class PlayerController : MonoBehaviour
     Vector3 veloctity;
 
     public Transform model;
-    public Transform mainCameraParent;
+    public Transform CameraRotateY;
+    public Transform CameraRotateZ;
 
     bool isGrounded;
     float movingSpeed = 10;
@@ -37,7 +38,7 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
-        Vector3 motion = transform.forward * Input.GetAxis("Vertical") * movingSpeed + transform.right * Input.GetAxis("Horizontal") * movingSpeed;
+        Vector3 motion = -CameraRotateY.right * Input.GetAxis("Vertical") * movingSpeed + CameraRotateY.forward * Input.GetAxis("Horizontal") * movingSpeed;
         characterController.Move(motion * (Input.GetKey(KeyCode.LeftShift) == true ? 2f : 1f) * Time.deltaTime);
 
         playerAnimator.Walking();
@@ -85,20 +86,20 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
         {
-            model.localRotation = Quaternion.Slerp(model.localRotation, targetRotation, rotatingSpeed * Time.deltaTime);
+            model.localRotation = Quaternion.Slerp(model.localRotation, targetRotation * Quaternion.LookRotation(-CameraRotateY.right), rotatingSpeed * Time.deltaTime);
         }
     }
 
     void CameraRotation()
     {
-        mainCameraParent.Rotate(0f, 0f, ClampAngle(Input.GetAxis("Mouse Y")));
-        transform.Rotate(0f, Input.GetAxis("Mouse X") * rotatingSpeed * SaveLoadManager.instance.offsetX, 0f);
+        CameraRotateZ.Rotate(0f, 0f, ClampAngle(Input.GetAxis("Mouse Y")));
+        CameraRotateY.Rotate(0f, Input.GetAxis("Mouse X") * rotatingSpeed * SaveLoadManager.instance.offsetX, 0f);
     }
 
     //Clamp angle before rotate
     float ClampAngle(float input)
     {
-        float xRotation = mainCameraParent.localEulerAngles.z;
+        float xRotation = CameraRotateZ.localEulerAngles.z;
         float finalSpeed = input * rotatingSpeed * SaveLoadManager.instance.offsetY;
 
         if (xRotation + finalSpeed <= 90f || xRotation + finalSpeed >= 270f)

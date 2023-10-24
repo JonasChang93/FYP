@@ -17,10 +17,10 @@ public class MainCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Ray();
+        CameraTransform();
     }
 
-    void Ray()
+    void CameraTransform()
     {
         origin = transform.parent.position + new Vector3(0, 1);
         direction = transform.parent.right;
@@ -39,8 +39,5 @@ public class MainCamera : MonoBehaviour
         {
             transform.localPosition = new Vector3(2, 1);
         }
-
-
-        Debug.Log(transform.parent.InverseTransformPoint(hitPoint).x);
     }
 }
