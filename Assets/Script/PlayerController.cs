@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
     void Move()
     {
         Vector3 motion = -CameraRotateY.right * Input.GetAxis("Vertical") * movingSpeed + CameraRotateY.forward * Input.GetAxis("Horizontal") * movingSpeed;
-        characterController.Move(motion * (Input.GetKey(KeyCode.LeftShift) == true ? 2f : 1f) * Time.deltaTime);
+        characterController.Move(motion * playerAnimator.WalkOrRun() * Time.deltaTime);
 
         playerAnimator.Walking();
     }
