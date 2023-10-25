@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     PlayerAnimator playerAnimator;
 
     Vector3 veloctity;
+    Vector3 veloctityXZ;
 
     public Transform model;
     public Transform CameraRotateY;
@@ -19,6 +20,7 @@ public class PlayerController : MonoBehaviour
     float jumpForce = 5;
     float currentRotationAngle;
     float groundedCounter;
+    float jumpCooldown;
 
     // Start is called before the first frame update
     void Start()
@@ -38,20 +40,36 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
-        Vector3 motion = -CameraRotateY.right * Input.GetAxis("Vertical") * movingSpeed + CameraRotateY.forward * Input.GetAxis("Horizontal") * movingSpeed;
-        characterController.Move(motion * playerAnimator.WalkOrRun() * Time.deltaTime);
+        if (isGrounded)
+        {
+            Vector3 motion = -CameraRotateY.right * Input.GetAxisRaw("Vertical") * movingSpeed + CameraRotateY.forward * Input.GetAxisRaw("Horizontal") * movingSpeed;
+            veloctityXZ = Vector3.Lerp(motion * playerAnimator.WalkOrRun(), Vector3.zero, Time.deltaTime);
 
-        playerAnimator.Walking();
+            characterController.Move(veloctityXZ * Time.deltaTime);
+        }
+        else
+        {
+            characterController.Move(veloctityXZ * Time.deltaTime);
+        }
     }
 
     void Jump()
     {
+        if (jumpCooldown > 0)
+        {
+            jumpCooldown += -Time.deltaTime;
+        }
+
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            veloctity.y = jumpForce;
-            isGrounded = false;
-            
-            playerAnimator.Jumping();
+            if (jumpCooldown <= 0)
+            {
+                veloctity.y = jumpForce;
+
+                isGrounded = false;
+
+                playerAnimator.Jumping();
+            }
         }
 
         if (isGrounded)
@@ -62,6 +80,8 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            jumpCooldown = 1;
+
             veloctity.y += -10f * Time.deltaTime;
 
             playerAnimator.Falling();
