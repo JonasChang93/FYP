@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -43,12 +44,15 @@ public class PlayerController : MonoBehaviour
         if (isGrounded)
         {
             Vector3 motion = -CameraRotateY.right * Input.GetAxisRaw("Vertical") * movingSpeed + CameraRotateY.forward * Input.GetAxisRaw("Horizontal") * movingSpeed;
-            veloctityXZ = Vector3.Lerp(motion * playerAnimator.WalkOrRun(), Vector3.zero, Time.deltaTime);
+            veloctityXZ = Vector3.Lerp(veloctityXZ, motion * playerAnimator.Movement(isGrounded), Time.deltaTime * 4);
 
             characterController.Move(veloctityXZ * Time.deltaTime);
         }
         else
         {
+            veloctityXZ = Vector3.Lerp(veloctityXZ, Vector3.zero, Time.deltaTime * 2);
+            playerAnimator.Movement(isGrounded);
+
             characterController.Move(veloctityXZ * Time.deltaTime);
         }
     }
@@ -128,12 +132,12 @@ public class PlayerController : MonoBehaviour
         }
         else if (xRotation + finalSpeed > 90 && xRotation + finalSpeed < 180)
         {
-            Debug.Log("90");
+            //Debug.Log("90");
             return 90f - xRotation;
         }
         else
         {
-            Debug.Log("270");
+            //Debug.Log("270");
             return 270f - xRotation;
         }
     }

@@ -31,13 +31,13 @@ public class MainCamera : MonoBehaviour
         {
             hitPoint = hit.point;
         }
-        if (hit.collider != null && transform.parent.InverseTransformPoint(hitPoint).x < 2)
+        if (hit.collider != null && transform.parent.InverseTransformPoint(hitPoint).x < 3)
         {
             transform.localPosition = new Vector3(transform.parent.InverseTransformPoint(hitPoint).x, 1);
         }
         else
         {
-            transform.localPosition = new Vector3(2, 1);
+            transform.localPosition = new Vector3(3, 1);
         }
     }
 }
