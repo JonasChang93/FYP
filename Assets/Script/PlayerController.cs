@@ -17,7 +17,6 @@ public class PlayerController : MonoBehaviour
 
     bool isGrounded;
     float movingSpeed = 10;
-    float rotatingSpeed = 10;
     float jumpForce = 5;
     float currentRotationAngle;
     float groundedCounter;
@@ -50,7 +49,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            veloctityXZ = Vector3.Lerp(veloctityXZ, Vector3.zero, Time.deltaTime * 2);
+            veloctityXZ = Vector3.Lerp(veloctityXZ, Vector3.zero, Time.deltaTime );
             playerAnimator.Movement(isGrounded);
 
             characterController.Move(veloctityXZ * Time.deltaTime);
@@ -78,7 +77,7 @@ public class PlayerController : MonoBehaviour
 
         if (isGrounded)
         {
-            veloctity.y = 0f;
+            veloctity.y = 0;
 
             playerAnimator.Landing();
         }
@@ -86,7 +85,7 @@ public class PlayerController : MonoBehaviour
         {
             jumpCooldown = 1;
 
-            veloctity.y += -10f * Time.deltaTime;
+            veloctity.y += -10 * Time.deltaTime;
 
             playerAnimator.Falling();
         }
@@ -110,35 +109,35 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
         {
-            model.localRotation = Quaternion.Slerp(model.localRotation, targetRotation * Quaternion.LookRotation(-CameraRotateY.right), rotatingSpeed * Time.deltaTime);
+            model.localRotation = Quaternion.Slerp(model.localRotation, targetRotation * Quaternion.LookRotation(-CameraRotateY.right), 10 * Time.deltaTime);
         }
     }
 
     void CameraRotation()
     {
-        CameraRotateZ.Rotate(0f, 0f, ClampAngle(Input.GetAxis("Mouse Y")));
-        CameraRotateY.Rotate(0f, Input.GetAxis("Mouse X") * rotatingSpeed * SaveLoadManager.instance.offsetX, 0f);
+        CameraRotateZ.Rotate(0, 0, ClampAngle(Input.GetAxis("Mouse Y")));
+        CameraRotateY.Rotate(0, Input.GetAxis("Mouse X") * SaveLoadManager.instance.rotatingSpeed * SaveLoadManager.instance.offsetX, 0);
     }
 
     //Clamp angle before rotate
     float ClampAngle(float input)
     {
         float xRotation = CameraRotateZ.localEulerAngles.z;
-        float finalSpeed = input * rotatingSpeed * SaveLoadManager.instance.offsetY;
+        float finalSpeed = input * SaveLoadManager.instance.rotatingSpeed * SaveLoadManager.instance.offsetY;
 
-        if (xRotation + finalSpeed <= 90f || xRotation + finalSpeed >= 270f)
+        if (xRotation + finalSpeed <= 90 || xRotation + finalSpeed >= 270)
         {
             return finalSpeed;
         }
         else if (xRotation + finalSpeed > 90 && xRotation + finalSpeed < 180)
         {
             //Debug.Log("90");
-            return 90f - xRotation;
+            return 90 - xRotation;
         }
         else
         {
             //Debug.Log("270");
-            return 270f - xRotation;
+            return 270 - xRotation;
         }
     }
 

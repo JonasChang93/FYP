@@ -30,9 +30,14 @@ public class PlayerAnimator : MonoBehaviour
             animator.SetFloat("speed", Mathf.Lerp(animator.GetFloat("speed"), 0.5f, Time.deltaTime * 2));
             return 0.5f;
         }
-        else
+        else if (grounded)
         {
             animator.SetFloat("speed", Mathf.Lerp(animator.GetFloat("speed"), 0, Time.deltaTime * 2));
+            return 0;
+        }
+        else
+        {
+            animator.SetFloat("speed", Mathf.Lerp(animator.GetFloat("speed"), 0, Time.deltaTime));
             return 0;
         }
     }

@@ -11,6 +11,7 @@ public class SaveLoadManager : MonoBehaviour
     AudioSource audioSource;
     Toggle audioToggle;
     Slider audioSlider;
+    Slider mouseSlider;
     Dropdown resolutionDropdown;
     Toggle offsetX_toggle;
     Toggle offsetY_toggle;
@@ -18,16 +19,17 @@ public class SaveLoadManager : MonoBehaviour
     float bgmVolume;
     bool bgmMute;
     int dropdownIndex;
+    float mouseSliderFloat = 1;
 
     [HideInInspector] public float offsetX = 1;
     [HideInInspector] public float offsetY = 1;
+    [HideInInspector] public float rotatingSpeed = 10;
 
     public static SaveLoadManager instance;
 
     private void Awake()
     {
         instance = this;
-
     }
 
     // Start is called before the first frame update
@@ -37,6 +39,7 @@ public class SaveLoadManager : MonoBehaviour
         audioToggle = GameObject.Find("Audio").GetComponentInChildren<Toggle>();
         audioSlider = GameObject.Find("Audio").GetComponentInChildren<Slider>();
         resolutionDropdown = GameObject.Find("Resolution").GetComponentInChildren<Dropdown>();
+        mouseSlider = GameObject.Find("MouseSlider").GetComponentInChildren<Slider>();
         offsetX_toggle = GameObject.Find("ReverseHorizontal").GetComponentInChildren<Toggle>();
         offsetY_toggle = GameObject.Find("ReverseVertical").GetComponentInChildren<Toggle>();
     }
@@ -53,15 +56,18 @@ public class SaveLoadManager : MonoBehaviour
         FileStream file = File.Create("./SavedSetting.dat");
         SaveData saveData = new SaveData();
 
+        //Save in component
         bgmVolume = audioSource.volume;
         bgmMute = audioSource.mute;
-        dropdownIndex = resolutionDropdown.value;
 
         saveData.bgmVolume = bgmVolume;
         saveData.bgmMute = bgmMute;
-        saveData.dropdownIndex = dropdownIndex;
+
+        //Save in script
         saveData.offsetX = offsetX;
         saveData.offsetY = offsetY;
+        saveData.dropdownIndex = dropdownIndex;
+        saveData.mouseSliderFloat = mouseSliderFloat;
 
         binaryFormatter.Serialize(file, saveData);
         file.Close();
@@ -79,12 +85,15 @@ public class SaveLoadManager : MonoBehaviour
             FileStream file = File.Open("./SavedSetting.dat", FileMode.Open);
             SaveData saveData = (SaveData)binaryFormatter.Deserialize(file);
 
+            //Load to script
             bgmVolume = saveData.bgmVolume;
             bgmMute = saveData.bgmMute;
-            dropdownIndex = saveData.dropdownIndex;
             offsetX = saveData.offsetX;
             offsetY = saveData.offsetY;
+            dropdownIndex = saveData.dropdownIndex;
+            mouseSliderFloat = saveData.mouseSliderFloat;
 
+            //Load to component
             audioSource.volume = bgmVolume;
             audioSource.mute = bgmMute;
             ResolutionDropdown(dropdownIndex);
@@ -107,6 +116,7 @@ public class SaveLoadManager : MonoBehaviour
         audioSlider.value = bgmVolume;
         audioToggle.isOn = bgmMute;
         resolutionDropdown.value = dropdownIndex;
+        mouseSlider.value = mouseSliderFloat;
         offsetX_toggle.isOn = offsetX > 0 ? false : true;
         offsetY_toggle.isOn = offsetY > 0 ? false : true;
     }
@@ -133,6 +143,12 @@ public class SaveLoadManager : MonoBehaviour
         {
             offsetX = 1;
         }
+    }
+
+    public void MouseSensitivity(float value)
+    {
+        mouseSliderFloat = value;
+        rotatingSpeed = 10 * mouseSliderFloat;
     }
 
     public void DropdownIndex(int option)
@@ -179,4 +195,5 @@ class SaveData
     public int dropdownIndex;
     public float offsetX;
     public float offsetY;
+    public float mouseSliderFloat;
 }
