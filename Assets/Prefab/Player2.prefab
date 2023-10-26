@@ -52,8 +52,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 2884501759457694858}
-  CameraRotateY: {fileID: 0}
-  CameraRotateZ: {fileID: 0}
+  CameraRotateY: {fileID: 1813146246134879554}
+  CameraRotateZ: {fileID: 6116139212489142637}
 --- !u!114 &2109155719617019383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -305,7 +305,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 51cf88e9d6bc923448272190338235a4, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 4b03351241742e14ca6294d4a80e339a, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

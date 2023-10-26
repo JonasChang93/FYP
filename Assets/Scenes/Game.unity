@@ -474,11 +474,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1235913159 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6116139212489142637, guid: 2f37e0f49760176499597a7533750e51, type: 3}
-  m_PrefabInstance: {fileID: 3426525098694958242}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1345547191
 GameObject:
   m_ObjectHideFlags: 0
@@ -1127,7 +1122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UiScaleMode: 1
-  m_ReferencePixelsPerUnit: 200
+  m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
@@ -1280,11 +1275,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4143364326974627401, guid: fb4630a314f9b5943aecbf55ecd1879d, type: 3}
   m_PrefabInstance: {fileID: 1489696664}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &2025564686 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1813146246134879554, guid: 2f37e0f49760176499597a7533750e51, type: 3}
-  m_PrefabInstance: {fileID: 3426525098694958242}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3426525098694958242
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1336,14 +1326,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2766752337620245088, guid: 2f37e0f49760176499597a7533750e51, type: 3}
-      propertyPath: CameraRotateY
-      value: 
-      objectReference: {fileID: 2025564686}
-    - target: {fileID: 2766752337620245088, guid: 2f37e0f49760176499597a7533750e51, type: 3}
-      propertyPath: CameraRotateZ
-      value: 
-      objectReference: {fileID: 1235913159}
     - target: {fileID: 3636463708558728047, guid: 2f37e0f49760176499597a7533750e51, type: 3}
       propertyPath: m_Name
       value: Player2
