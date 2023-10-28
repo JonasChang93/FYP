@@ -162,7 +162,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4825530246083603956}
   m_Layer: 5
-  m_Name: ReverseHorizontal
+  m_Name: OffsetX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -931,7 +931,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1649994155843465162
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1155,9 +1155,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4143364326974627400}
   - component: {fileID: 4143364326974627397}
-  - component: {fileID: 4143364326974627403}
   - component: {fileID: 3336611321245644613}
   - component: {fileID: 4967892178017380590}
+  - component: {fileID: 3684301848568093612}
   m_Layer: 5
   m_Name: SettingDialogue
   m_TagString: Untagged
@@ -1194,27 +1194,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4143364326974627401}
   m_CullTransparentMesh: 1
---- !u!95 &4143364326974627403
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4143364326974627401}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e89f76197b913fb4b86a2693178efd90, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &3336611321245644613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1259,6 +1238,27 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 0.4
+--- !u!95 &3684301848568093612
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4143364326974627401}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b35de10d061c38c449e65dabce208812, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4143364327215828507
 GameObject:
   m_ObjectHideFlags: 0
@@ -1633,7 +1633,7 @@ GameObject:
   - component: {fileID: 4143364328334559177}
   - component: {fileID: 4143364328334559176}
   m_Layer: 5
-  m_Name: Toggle3
+  m_Name: Toggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3805,7 +3805,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7707196447536131112
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3912,7 +3912,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1693576390866040059}
   m_Layer: 5
-  m_Name: ReverseVertical
+  m_Name: OffsetY
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -40,8 +40,8 @@ public class SaveLoadManager : MonoBehaviour
         audioSlider = GameObject.Find("Audio").GetComponentInChildren<Slider>();
         resolutionDropdown = GameObject.Find("Resolution").GetComponentInChildren<Dropdown>();
         mouseSlider = GameObject.Find("MouseSlider").GetComponentInChildren<Slider>();
-        offsetX_toggle = GameObject.Find("ReverseHorizontal").GetComponentInChildren<Toggle>();
-        offsetY_toggle = GameObject.Find("ReverseVertical").GetComponentInChildren<Toggle>();
+        offsetX_toggle = GameObject.Find("OffsetX").GetComponentInChildren<Toggle>();
+        offsetY_toggle = GameObject.Find("OffsetY").GetComponentInChildren<Toggle>();
     }
 
     // Update is called once per frame
@@ -123,26 +123,12 @@ public class SaveLoadManager : MonoBehaviour
 
     public void CheckOrNotOffsetY(bool isOn)
     {
-        if (isOn == true)
-        {
-            offsetY = -1;
-        }
-        else
-        {
-            offsetY = 1;
-        }
+        offsetY = isOn ? -1 : 1;
     }
 
     public void CheckOrNotOffsetX(bool isOn)
     {
-        if (isOn == true)
-        {
-            offsetX = -1;
-        }
-        else
-        {
-            offsetX = 1;
-        }
+        offsetX = isOn ? -1 : 1;
     }
 
     public void MouseSensitivity(float value)

@@ -32,10 +32,13 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();
-        Jump();
-        ModelRotation();
-        CameraRotation();
+        if (Time.timeScale != 0)
+        {
+            Move();
+            Jump();
+            ModelRotation();
+            CameraRotation();
+        }
     }
 
     void Move()
