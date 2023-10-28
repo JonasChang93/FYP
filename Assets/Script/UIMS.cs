@@ -17,7 +17,6 @@ public class UIMS : MonoBehaviour
     IEnumerator BlackIn()
     {
         black.SetActive(true);
-
         black.GetComponent<Animator>().SetBool("black", true);
 
         yield return new WaitForSeconds(1);
@@ -28,7 +27,6 @@ public class UIMS : MonoBehaviour
     public void StartGame()
     {
         black.SetActive(true);
-
         black.GetComponent<Animator>().SetBool("black", false);
 
         StartCoroutine(LoadScene());

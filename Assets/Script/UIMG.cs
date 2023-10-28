@@ -11,16 +11,14 @@ public class UIMG : MonoBehaviour
     public GameObject settingDialogue;
 
     Animator blackAnimator;
-    RectTransform settingDialogueRectTransform;
+    RectTransform settingDialogueRT;
 
-    bool settingDialogueOnOff = false;
-    bool timerOnOff = false;
-    float timer;
+    bool dialogueOnOff = false;
 
     void Start()
     {
         blackAnimator = black.GetComponent<Animator>();
-        settingDialogueRectTransform = settingDialogue.GetComponent<RectTransform>();
+        settingDialogueRT = settingDialogue.GetComponent<RectTransform>();
 
         StartCoroutine(BlackIn());
     }
@@ -28,7 +26,6 @@ public class UIMG : MonoBehaviour
     IEnumerator BlackIn()
     {
         black.SetActive(true);
-
         blackAnimator.SetBool("black", true);
 
         yield return new WaitForSeconds(1);
@@ -39,61 +36,59 @@ public class UIMG : MonoBehaviour
     //ESC dialog
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !settingDialogueOnOff)
+        if (Input.GetKeyDown(KeyCode.Escape) && !dialogueOnOff)
         {
             if (escapeDialogue.activeSelf)
             {
                 Time.timeScale = 1;
+
                 escapeDialogue.SetActive(false);
                 black.SetActive(false);
-                timerOnOff = false;
-                timer = 0;
             }
             else
             {
                 Time.timeScale = 0;
+
                 escapeDialogue.SetActive(true);
                 black.SetActive(true);
-                timerOnOff = true;
+                blackAnimator.Play("FadeOut", -1, 0.5f);
             }
         }
-
-        if (timerOnOff)
-        {
-            BlackFadeOut();
-        }
     }
 
-    void BlackFadeOut()
-    {
-        timer += 0.001f;
-        blackAnimator.Play("FadeOut", -1, timer);
-    }
-
-    //Restart button
-    public void RestartGame()
+        public void RestartGame()
     {
         Time.timeScale = 1;
+
+        StartCoroutine(LoadScene());
+    }
+
+    IEnumerator LoadScene()
+    {
+        yield return new WaitForSeconds(1);
+
         SceneManager.LoadScene("Start");
     }
 
-    //Open close setting menu
-    public void OpenDialog()
+        //Open close setting menu
+        public void OpenDialog()
     {
-        settingDialogueOnOff = true;
-        settingDialogueRectTransform.pivot = new Vector2(0.5f, 0.5f);
-        settingDialogueRectTransform.anchorMax = new Vector2(0.5f, settingDialogueRectTransform.anchorMax.y);
-        settingDialogueRectTransform.anchorMin = new Vector2(0.5f, settingDialogueRectTransform.anchorMin.y);
-        settingDialogueRectTransform.anchoredPosition = new Vector2(0, 0);
+        dialogueOnOff = true;
+
+        settingDialogueRT.pivot = new Vector2(0.5f, 0.5f);
+        settingDialogueRT.anchorMax = new Vector2(0.5f, settingDialogueRT.anchorMax.y);
+        settingDialogueRT.anchorMin = new Vector2(0.5f, settingDialogueRT.anchorMin.y);
+        settingDialogueRT.anchoredPosition = new Vector2(0, 0);
     }
 
     public void CloseDialog()
     {
-        settingDialogueOnOff = false;
-        settingDialogueRectTransform.pivot = new Vector2(0, 0.5f);
-        settingDialogueRectTransform.anchorMax = new Vector2(1, settingDialogueRectTransform.anchorMax.y);
-        settingDialogueRectTransform.anchorMin = new Vector2(1, settingDialogueRectTransform.anchorMin.y);
-        settingDialogueRectTransform.anchoredPosition = new Vector2(0, 0);
+        dialogueOnOff = false;
+
+        settingDialogueRT.pivot = new Vector2(0, 0.5f);
+        settingDialogueRT.anchorMax = new Vector2(1, settingDialogueRT.anchorMax.y);
+        settingDialogueRT.anchorMin = new Vector2(1, settingDialogueRT.anchorMin.y);
+        settingDialogueRT.anchoredPosition = new Vector2(0, 0);
     }
 
     //Quit button

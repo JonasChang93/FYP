@@ -609,6 +609,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3684301848568093612, guid: fb4630a314f9b5943aecbf55ecd1879d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4143364326974627400, guid: fb4630a314f9b5943aecbf55ecd1879d, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -898,6 +902,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 838875037}
+    - target: {fileID: 1255397806433188941, guid: d7ad35c8ec62fa142a7d5bf28f053302, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OpenDialog
+      objectReference: {fileID: 0}
     - target: {fileID: 1350008501339052809, guid: d7ad35c8ec62fa142a7d5bf28f053302, type: 3}
       propertyPath: m_Name
       value: EscapeDialogue
