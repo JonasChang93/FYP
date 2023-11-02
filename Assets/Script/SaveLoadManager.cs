@@ -93,11 +93,6 @@ public class SaveLoadManager : MonoBehaviour
             dropdownIndex = saveData.dropdownIndex;
             mouseSliderFloat = saveData.mouseSliderFloat;
 
-            //Load to component
-            audioSource.volume = bgmVolume;
-            audioSource.mute = bgmMute;
-            ResolutionDropdown(dropdownIndex);
-
             file.Close();
             CancelSetting();
 
@@ -106,7 +101,7 @@ public class SaveLoadManager : MonoBehaviour
         else
         {
             SaveSetting();
-
+            ResolutionDropdown(dropdownIndex);
             Debug.Log("No setting! New setting Created");
         }
     }
@@ -168,7 +163,7 @@ public class SaveLoadManager : MonoBehaviour
                 screenHeight = 1080;
                 break;
         }
-
+        
         Screen.SetResolution(screenWidth, screenHeight, false);
     }
 }
