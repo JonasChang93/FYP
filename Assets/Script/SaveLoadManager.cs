@@ -71,8 +71,7 @@ public class SaveLoadManager : MonoBehaviour
 
         binaryFormatter.Serialize(file, saveData);
         file.Close();
-
-        PlayerPrefs.Save();
+        ReloadSetting();
 
         Debug.Log("Setting saved!");
     }
@@ -94,26 +93,33 @@ public class SaveLoadManager : MonoBehaviour
             mouseSliderFloat = saveData.mouseSliderFloat;
 
             file.Close();
-            CancelSetting();
+            ReloadSetting();
 
             Debug.Log("Setting loaded!");
         }
         else
         {
             SaveSetting();
-            ResolutionDropdown(dropdownIndex);
+
             Debug.Log("No setting! New setting Created");
         }
     }
 
-    public void CancelSetting()
+    public void ReloadSetting()
     {
         audioSlider.value = bgmVolume;
         audioToggle.isOn = bgmMute;
+
         resolutionDropdown.value = dropdownIndex;
+        ResolutionDropdown(resolutionDropdown.value);
+
         mouseSlider.value = mouseSliderFloat;
+        MouseSensitivity(mouseSlider.value);
+
         offsetX_toggle.isOn = offsetX > 0 ? false : true;
         offsetY_toggle.isOn = offsetY > 0 ? false : true;
+        CheckOrNotOffsetX(offsetX_toggle.isOn);
+        CheckOrNotOffsetY(offsetY_toggle.isOn);
     }
 
     public void CheckOrNotOffsetY(bool isOn)
@@ -135,7 +141,7 @@ public class SaveLoadManager : MonoBehaviour
     public void DropdownIndex(int option)
     {
         dropdownIndex = option;
-
+        
         ResolutionDropdown(option);
     }
 
@@ -143,7 +149,7 @@ public class SaveLoadManager : MonoBehaviour
     {
         int screenWidth;
         int screenHeight;
-
+        
         switch (option)
         {
             case 0:
