@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class UIMS : MonoBehaviour
+public class UI_ManagerStart : MonoBehaviour
 {
     public GameObject black;
     public GameObject btnGroup;

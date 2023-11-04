@@ -16,9 +16,7 @@ public class SaveLoadManager : MonoBehaviour
     Toggle offsetX_toggle;
     Toggle offsetY_toggle;
 
-    float bgmVolume;
-    bool bgmMute;
-    int dropdownIndex;
+    int dropdownIndex = 0;
     float mouseSliderFloat = 1;
 
     [HideInInspector] public float offsetX = 1;
@@ -57,11 +55,8 @@ public class SaveLoadManager : MonoBehaviour
         SaveData saveData = new SaveData();
 
         //Save in component
-        bgmVolume = audioSource.volume;
-        bgmMute = audioSource.mute;
-
-        saveData.bgmVolume = bgmVolume;
-        saveData.bgmMute = bgmMute;
+        saveData.bgmVolume = audioSource.volume;
+        saveData.bgmMute = audioSource.mute;
 
         //Save in script
         saveData.offsetX = offsetX;
@@ -71,8 +66,8 @@ public class SaveLoadManager : MonoBehaviour
 
         binaryFormatter.Serialize(file, saveData);
         file.Close();
-        ReloadSetting();
 
+        ReloadSetting();
         Debug.Log("Setting saved!");
     }
 
@@ -85,16 +80,16 @@ public class SaveLoadManager : MonoBehaviour
             SaveData saveData = (SaveData)binaryFormatter.Deserialize(file);
 
             //Load to script
-            bgmVolume = saveData.bgmVolume;
-            bgmMute = saveData.bgmMute;
+            audioSlider.value = saveData.bgmVolume;
+            audioToggle.isOn = saveData.bgmMute;
             offsetX = saveData.offsetX;
             offsetY = saveData.offsetY;
             dropdownIndex = saveData.dropdownIndex;
             mouseSliderFloat = saveData.mouseSliderFloat;
 
             file.Close();
-            ReloadSetting();
 
+            ReloadSetting();
             Debug.Log("Setting loaded!");
         }
         else
@@ -107,32 +102,29 @@ public class SaveLoadManager : MonoBehaviour
 
     public void ReloadSetting()
     {
-        audioSlider.value = bgmVolume;
-        audioToggle.isOn = bgmMute;
-
         resolutionDropdown.value = dropdownIndex;
         ResolutionDropdown(resolutionDropdown.value);
 
         mouseSlider.value = mouseSliderFloat;
-        MouseSensitivity(mouseSlider.value);
+        MouseSlider(mouseSlider.value);
 
         offsetX_toggle.isOn = offsetX > 0 ? false : true;
         offsetY_toggle.isOn = offsetY > 0 ? false : true;
-        CheckOrNotOffsetX(offsetX_toggle.isOn);
-        CheckOrNotOffsetY(offsetY_toggle.isOn);
+        OffsetX_toggle(offsetX_toggle.isOn);
+        OffsetY_toggle(offsetY_toggle.isOn);
     }
 
-    public void CheckOrNotOffsetY(bool isOn)
+    public void OffsetY_toggle(bool isOn)
     {
         offsetY = isOn ? -1 : 1;
     }
 
-    public void CheckOrNotOffsetX(bool isOn)
+    public void OffsetX_toggle(bool isOn)
     {
         offsetX = isOn ? -1 : 1;
     }
 
-    public void MouseSensitivity(float value)
+    public void MouseSlider(float value)
     {
         mouseSliderFloat = value;
         rotatingSpeed = 10 * mouseSliderFloat;

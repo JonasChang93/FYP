@@ -4,21 +4,19 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class UIMG : MonoBehaviour
+public class UI_ManagerGame : MonoBehaviour
 {
     public GameObject black;
     public GameObject escapeDialogue;
-    public GameObject settingDialogue;
+    public RectTransform settingDialogueRT;
 
     Animator blackAnimator;
-    RectTransform settingDialogueRT;
 
     bool dialogueOnOff = false;
 
     void Start()
     {
         blackAnimator = black.GetComponent<Animator>();
-        settingDialogueRT = settingDialogue.GetComponent<RectTransform>();
 
         StartCoroutine(BlackIn());
     }

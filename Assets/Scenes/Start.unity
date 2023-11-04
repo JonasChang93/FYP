@@ -1235,7 +1235,7 @@ PrefabInstance:
       objectReference: {fileID: 949951430}
     - target: {fileID: 1581163318574195881, guid: fb4630a314f9b5943aecbf55ecd1879d, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: CheckOrNotOffsetY
+      value: OffsetY_toggle
       objectReference: {fileID: 0}
     - target: {fileID: 1682001827906788135, guid: fb4630a314f9b5943aecbf55ecd1879d, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1243,7 +1243,7 @@ PrefabInstance:
       objectReference: {fileID: 949951430}
     - target: {fileID: 1682001827906788135, guid: fb4630a314f9b5943aecbf55ecd1879d, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: MouseSensitivity
+      value: MouseSlider
       objectReference: {fileID: 0}
     - target: {fileID: 2805103912227006704, guid: fb4630a314f9b5943aecbf55ecd1879d, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1423,7 +1423,7 @@ PrefabInstance:
       objectReference: {fileID: 949951430}
     - target: {fileID: 8003388206205734832, guid: fb4630a314f9b5943aecbf55ecd1879d, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: CheckOrNotOffsetX
+      value: OffsetX_toggle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb4630a314f9b5943aecbf55ecd1879d, type: 3}
