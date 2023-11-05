@@ -1,22 +1,23 @@
 using System;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
 public class PlayerData : MonoBehaviour
 {
     public Slider healthBar;
-    public Slider ExpBar;
+    public Slider expBar;
     public Text levelUI;
 
     public bool isPlayer;
-    public bool isAttacking = false;
+
     public float attack;
     public float defense;
 
-    float maxHealth = 100;
     float curHealth = 100;
+    float maxHealth = 100;
     float exp;
-    float expCount = 10;
+    float maxExp = 10;
     float levels;
     bool levelUP;
 
@@ -30,14 +31,13 @@ public class PlayerData : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        levelUI.text = "Level: " + Convert.ToString(levels);
-        ExpBar.value = exp / expCount;
+        UpdateUI();
     }
 
     // Update is called once per frame
     void Update()
     {
-        LevelsSystem();
+        
     }
 
     public void DeductHealth(float health)
@@ -50,38 +50,43 @@ public class PlayerData : MonoBehaviour
         {
             if (isPlayer)
             {
-                //Banner.instance.PlayBanner("You die!");
+                Banner.instance.PlayBanner("You die!");
             }
             else
             {
-                isAttacking = false;
+                //isAttacking = false;
                 Destroy(gameObject);
             }
         }
     }
 
-    void LevelsSystem()
+    void LevelCheck()
     {
-        if (exp >= expCount)
+        if (exp >= maxExp)
         {
             levels += 1;
             levelUP = true;
             exp = 0;
-            expCount *= 2;
+            maxExp *= 2;
+
+            if (levelUP)
+            {
+                maxExp += 5;
+                attack += 5;
+                defense += 5;
+
+                UpdateUI();
+                Banner.instance.PlayBanner("You level up!");
+                levelUP = false;
+            }
         }
-        if (levelUP)
-        {
-            LevelsUP();
-        }
+        
     }
 
-    void LevelsUP()
+    void UpdateUI()
     {
-        attack += 5;
-        defense += 5;
         levelUI.text = "Level: " + Convert.ToString(levels);
-        ExpBar.value = exp / expCount;
-        Banner.instance.PlayBanner("You level up!");
-        levelUP = false;
+        healthBar.value = curHealth / maxHealth;
+        expBar.value = exp / maxExp;
     }
 }

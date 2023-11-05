@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class AttactEnemy : Interactable
 {
+    bool isAttacking = false;
+
     public override void Interact()
     {
         base.Interact();
 
-        if (!PlayerData.instance.isAttacking)
+        if (!isAttacking)
         {
             Debug.Log("Attack");
             PlayerData.instance.GetComponent<Animator>().Play("Attack");
-            PlayerData.instance.isAttacking = true;
+            isAttacking = true;
 
             StartCoroutine(Attacting());
         }
@@ -24,6 +26,6 @@ public class AttactEnemy : Interactable
         GetComponent<PlayerData>().DeductHealth(PlayerData.instance.attack);
         yield return new WaitForSeconds(0.5f);
 
-        PlayerData.instance.isAttacking = false;
+        isAttacking = false;
     }
 }

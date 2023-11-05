@@ -16,6 +16,6 @@ public class Banner : MonoBehaviour
     public void PlayBanner(string text)
     {
         GetComponent<Text>().text = text;
-        GetComponent<Animator>().Play("BannerPlay");
+        GetComponent<Animator>().Play("Flash");
     }
 }

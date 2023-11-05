@@ -17,7 +17,7 @@ public class UI_ManagerStart : MonoBehaviour
     IEnumerator BlackIn()
     {
         black.SetActive(true);
-        black.GetComponent<Animator>().SetBool("black", true);
+        black.GetComponent<Animator>().Play("FadeIn");
 
         yield return new WaitForSeconds(1);
 
@@ -27,7 +27,7 @@ public class UI_ManagerStart : MonoBehaviour
     public void StartGame()
     {
         black.SetActive(true);
-        black.GetComponent<Animator>().SetBool("black", false);
+        black.GetComponent<Animator>().Play("FadeOut");
 
         StartCoroutine(LoadScene());
     }
@@ -41,13 +41,13 @@ public class UI_ManagerStart : MonoBehaviour
 
     public void OpenDialog()
     {
-        btnGroup.GetComponent<Animator>().SetBool("isOnclick", true);
-        settingDialogue.GetComponent<Animator>().SetBool("isOnclick", true);
+        btnGroup.GetComponent<Animator>().Play("MoveOut");
+        settingDialogue.GetComponent<Animator>().Play("MoveIn");
     }
     public void CloseDialog()
     {
-        btnGroup.GetComponent<Animator>().SetBool("isOnclick", false);
-        settingDialogue.GetComponent<Animator>().SetBool("isOnclick", false);
+        btnGroup.GetComponent<Animator>().Play("MoveIn");
+        settingDialogue.GetComponent<Animator>().Play("MoveOut");
     }
 
     public void Quit()

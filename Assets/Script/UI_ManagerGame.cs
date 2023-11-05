@@ -24,7 +24,7 @@ public class UI_ManagerGame : MonoBehaviour
     IEnumerator BlackIn()
     {
         black.SetActive(true);
-        blackAnimator.SetBool("black", true);
+        blackAnimator.Play("FadeIn");
 
         yield return new WaitForSeconds(1);
 
