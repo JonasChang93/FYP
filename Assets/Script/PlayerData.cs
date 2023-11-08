@@ -22,7 +22,6 @@ public class PlayerData : MonoBehaviour
     bool levelUP;
 
     public static PlayerData instance;
-
     private void Awake()
     {
         instance = this;

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttactEnemy : Interactable
+public class EnemyAttact : Interactable
 {
     bool isAttacking = false;
 

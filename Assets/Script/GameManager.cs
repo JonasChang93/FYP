@@ -24,6 +24,13 @@ public class GameManager : MonoBehaviour
             case 0:
                 SaveLoadManager.instance.LoadSetting();
                 break;
+            case 1:
+                SaveLoadManager.instance.LoadSetting();
+                if (SaveLoadManager.instance.loadGame)
+                {
+
+                }
+                break;
             default:
                 SaveLoadManager.instance.LoadSetting();
                 break;

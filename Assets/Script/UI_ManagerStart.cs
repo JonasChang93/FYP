@@ -24,12 +24,18 @@ public class UI_ManagerStart : MonoBehaviour
         black.SetActive(false);
     }
 
-    public void StartGame()
+    public void NewGame()
     {
         black.SetActive(true);
         black.GetComponent<Animator>().Play("FadeOut");
 
         StartCoroutine(LoadScene());
+    }
+
+    public void LoadGame()
+    {
+        SaveLoadManager.instance.loadGame = true;
+        NewGame();
     }
 
     IEnumerator LoadScene()

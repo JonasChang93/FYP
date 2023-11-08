@@ -9,12 +9,13 @@ using System.Runtime.Serialization.Formatters.Binary;
 public class SaveLoadManager : MonoBehaviour
 {
     AudioSource audioSource;
-    Toggle audioToggle;
-    Slider audioSlider;
-    Slider mouseSlider;
-    Dropdown resolutionDropdown;
-    Toggle offsetX_toggle;
-    Toggle offsetY_toggle;
+
+    public Toggle audioToggle;
+    public Slider audioSlider;
+    public Slider mouseSlider;
+    public Dropdown resolutionDropdown;
+    public Toggle offsetX_toggle;
+    public Toggle offsetY_toggle;
 
     int dropdownIndex = 0;
     float mouseSliderFloat = 1;
@@ -22,9 +23,9 @@ public class SaveLoadManager : MonoBehaviour
     [HideInInspector] public float offsetX = 1;
     [HideInInspector] public float offsetY = 1;
     [HideInInspector] public float rotatingSpeed = 10;
+    [HideInInspector] public bool loadGame = false;
 
     public static SaveLoadManager instance;
-
     private void Awake()
     {
         instance = this;
@@ -34,12 +35,12 @@ public class SaveLoadManager : MonoBehaviour
     void Start()
     {
         audioSource = GameObject.Find("MainCamera").GetComponent<AudioSource>();
-        audioToggle = GameObject.Find("Audio").GetComponentInChildren<Toggle>();
-        audioSlider = GameObject.Find("Audio").GetComponentInChildren<Slider>();
-        resolutionDropdown = GameObject.Find("Resolution").GetComponentInChildren<Dropdown>();
-        mouseSlider = GameObject.Find("MouseSlider").GetComponentInChildren<Slider>();
-        offsetX_toggle = GameObject.Find("OffsetX").GetComponentInChildren<Toggle>();
-        offsetY_toggle = GameObject.Find("OffsetY").GetComponentInChildren<Toggle>();
+        audioToggle = audioToggle.GetComponent<Toggle>();
+        audioSlider = audioSlider.GetComponent<Slider>();
+        resolutionDropdown = resolutionDropdown.GetComponent<Dropdown>();
+        mouseSlider = mouseSlider.GetComponent<Slider>();
+        offsetX_toggle = offsetX_toggle.GetComponent<Toggle>();
+        offsetY_toggle = offsetY_toggle.GetComponent<Toggle>();
     }
 
     // Update is called once per frame
