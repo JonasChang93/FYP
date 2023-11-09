@@ -6,7 +6,7 @@ using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-public class SaveLoadManager : MonoBehaviour
+public class SaveLoadSettingManager : MonoBehaviour
 {
     AudioSource audioSource;
 
@@ -25,14 +25,14 @@ public class SaveLoadManager : MonoBehaviour
     [HideInInspector] public float rotatingSpeed = 10;
     [HideInInspector] public bool loadGame = false;
 
-    public static SaveLoadManager instance;
+    public static SaveLoadSettingManager instance;
     private void Awake()
     {
         instance = this;
+        GetAllComponent();
     }
 
-    // Start is called before the first frame update
-    void Start()
+    void GetAllComponent()
     {
         audioSource = GameObject.Find("MainCamera").GetComponent<AudioSource>();
         audioToggle = audioToggle.GetComponent<Toggle>();
@@ -41,6 +41,12 @@ public class SaveLoadManager : MonoBehaviour
         mouseSlider = mouseSlider.GetComponent<Slider>();
         offsetX_toggle = offsetX_toggle.GetComponent<Toggle>();
         offsetY_toggle = offsetY_toggle.GetComponent<Toggle>();
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
     }
 
     // Update is called once per frame
@@ -52,18 +58,19 @@ public class SaveLoadManager : MonoBehaviour
     public void SaveSetting()
     {
         BinaryFormatter binaryFormatter = new BinaryFormatter();
-        FileStream file = File.Create("./SavedSetting.dat");
-        SaveData saveData = new SaveData();
+        FileStream file = File.Create("./SettingData.dat");
+        SettingData saveData = new SettingData();
 
-        //Save in component
+        //Save from component
         saveData.bgmVolume = audioSource.volume;
         saveData.bgmMute = audioSource.mute;
 
-        //Save in script
+        //Save from script
         saveData.offsetX = offsetX;
         saveData.offsetY = offsetY;
         saveData.dropdownIndex = dropdownIndex;
         saveData.mouseSliderFloat = mouseSliderFloat;
+        saveData.loadGame = loadGame;
 
         binaryFormatter.Serialize(file, saveData);
         file.Close();
@@ -74,11 +81,11 @@ public class SaveLoadManager : MonoBehaviour
 
     public void LoadSetting()
     {
-        if (File.Exists("./SavedSetting.dat"))
+        if (File.Exists("./SettingData.dat"))
         {
             BinaryFormatter binaryFormatter = new BinaryFormatter();
-            FileStream file = File.Open("./SavedSetting.dat", FileMode.Open);
-            SaveData saveData = (SaveData)binaryFormatter.Deserialize(file);
+            FileStream file = File.Open("./SettingData.dat", FileMode.Open);
+            SettingData saveData = (SettingData)binaryFormatter.Deserialize(file);
 
             //Load to script
             audioSlider.value = saveData.bgmVolume;
@@ -87,6 +94,7 @@ public class SaveLoadManager : MonoBehaviour
             offsetY = saveData.offsetY;
             dropdownIndex = saveData.dropdownIndex;
             mouseSliderFloat = saveData.mouseSliderFloat;
+            loadGame = saveData.loadGame;
 
             file.Close();
 
@@ -168,7 +176,7 @@ public class SaveLoadManager : MonoBehaviour
 }
 
 [Serializable]
-class SaveData
+class SettingData
 {
     public float bgmVolume;
     public bool bgmMute;
@@ -176,4 +184,5 @@ class SaveData
     public float offsetX;
     public float offsetY;
     public float mouseSliderFloat;
+    public bool loadGame;
 }

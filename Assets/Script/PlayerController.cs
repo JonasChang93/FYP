@@ -119,14 +119,14 @@ public class PlayerController : MonoBehaviour
     void CameraRotation()
     {
         CameraRotateZ.Rotate(0, 0, ClampAngle(Input.GetAxis("Mouse Y")));
-        CameraRotateY.Rotate(0, Input.GetAxis("Mouse X") * SaveLoadManager.instance.rotatingSpeed * SaveLoadManager.instance.offsetX, 0);
+        CameraRotateY.Rotate(0, Input.GetAxis("Mouse X") * SaveLoadSettingManager.instance.rotatingSpeed * SaveLoadSettingManager.instance.offsetX, 0);
     }
 
     //Clamp angle before rotate
     float ClampAngle(float input)
     {
         float xRotation = CameraRotateZ.localEulerAngles.z;
-        float finalSpeed = input * SaveLoadManager.instance.rotatingSpeed * SaveLoadManager.instance.offsetY;
+        float finalSpeed = input * SaveLoadSettingManager.instance.rotatingSpeed * SaveLoadSettingManager.instance.offsetY;
 
         if (xRotation + finalSpeed <= 90 || xRotation + finalSpeed >= 270)
         {

@@ -54,7 +54,17 @@ public class UI_ManagerGame : MonoBehaviour
         }
     }
 
-        public void RestartGame()
+    public void LoadGame()
+    {
+        Time.timeScale = 1;
+        black.SetActive(true);
+        black.GetComponent<Animator>().Play("FadeOut");
+        SaveLoadSettingManager.instance.loadGame = true;
+
+        StartCoroutine(LoadScene());
+    }
+
+    public void RestartGame()
     {
         Time.timeScale = 1;
 
@@ -65,7 +75,16 @@ public class UI_ManagerGame : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
 
-        SceneManager.LoadScene("Start");
+        if (SaveLoadSettingManager.instance.loadGame)
+        {
+            SaveLoadSettingManager.instance.SaveSetting();
+            SceneManager.LoadScene("Game");
+        }
+        else
+        {
+            SaveLoadSettingManager.instance.SaveSetting();
+            SceneManager.LoadScene("Start");
+        }
     }
 
         //Open close setting menu

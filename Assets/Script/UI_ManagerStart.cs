@@ -34,7 +34,8 @@ public class UI_ManagerStart : MonoBehaviour
 
     public void LoadGame()
     {
-        SaveLoadManager.instance.loadGame = true;
+        SaveLoadSettingManager.instance.loadGame = true;
+        SaveLoadSettingManager.instance.SaveSetting();
         NewGame();
     }
 

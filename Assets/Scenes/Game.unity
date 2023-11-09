@@ -533,6 +533,7 @@ GameObject:
   - component: {fileID: 838875036}
   - component: {fileID: 838875035}
   - component: {fileID: 838875034}
+  - component: {fileID: 838875038}
   - component: {fileID: 838875037}
   m_Layer: 0
   m_Name: GameManager
@@ -604,6 +605,18 @@ MonoBehaviour:
   black: {fileID: 573058134}
   escapeDialogue: {fileID: 208258921}
   settingDialogueRT: {fileID: 1489696665}
+--- !u!114 &838875038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 838875033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd0089c5607025c46a80de36bf585e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &938514910
 GameObject:
   m_ObjectHideFlags: 0
@@ -1581,6 +1594,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -108
       objectReference: {fileID: 0}
+    - target: {fileID: 1169395520005092821, guid: d7ad35c8ec62fa142a7d5bf28f053302, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 838875037}
+    - target: {fileID: 1169395520005092821, guid: d7ad35c8ec62fa142a7d5bf28f053302, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 1169395520005092821, guid: d7ad35c8ec62fa142a7d5bf28f053302, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UI_ManagerGame, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1255397806433188941, guid: d7ad35c8ec62fa142a7d5bf28f053302, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1760,6 +1785,18 @@ PrefabInstance:
     - target: {fileID: 5997984484088727826, guid: d7ad35c8ec62fa142a7d5bf28f053302, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -756
+      objectReference: {fileID: 0}
+    - target: {fileID: 8195648895566525483, guid: d7ad35c8ec62fa142a7d5bf28f053302, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 838875038}
+    - target: {fileID: 8195648895566525483, guid: d7ad35c8ec62fa142a7d5bf28f053302, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SaveGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 8195648895566525483, guid: d7ad35c8ec62fa142a7d5bf28f053302, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SaveLoadGameManager, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7ad35c8ec62fa142a7d5bf28f053302, type: 3}
@@ -2315,7 +2352,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1288872173289866136, guid: 2f37e0f49760176499597a7533750e51, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1288872173289866136, guid: 2f37e0f49760176499597a7533750e51, type: 3}
       propertyPath: m_LocalPosition.z

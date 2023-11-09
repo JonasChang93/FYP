@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,17 +23,18 @@ public class GameManager : MonoBehaviour
         switch (SceneManager.GetActiveScene().buildIndex)
         {
             case 0:
-                SaveLoadManager.instance.LoadSetting();
+                SaveLoadSettingManager.instance.LoadSetting();
                 break;
             case 1:
-                SaveLoadManager.instance.LoadSetting();
-                if (SaveLoadManager.instance.loadGame)
+                SaveLoadSettingManager.instance.LoadSetting();
+                if (SaveLoadSettingManager.instance.loadGame)
                 {
-
+                    SaveLoadSettingManager.instance.loadGame = false;
+                    SaveLoadGameManager.instance.LoadGame();
                 }
                 break;
             default:
-                SaveLoadManager.instance.LoadSetting();
+                SaveLoadSettingManager.instance.LoadSetting();
                 break;
         }
     }
