@@ -8,8 +8,6 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public class SaveLoadGameManager : MonoBehaviour
 {
-    Vector3 playerPosition;
-
     Transform playerTransform;
     CharacterController characterController;
     Transform modelRotate;
@@ -21,7 +19,6 @@ public class SaveLoadGameManager : MonoBehaviour
     {
         instance = this;
         GetAllComponent();
-        playerPosition = playerTransform.position;
     }
 
     void GetAllComponent()
@@ -72,10 +69,11 @@ public class SaveLoadGameManager : MonoBehaviour
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             FileStream file = File.Open("./GameData.dat", FileMode.Open);
             GameData saveData = (GameData)binaryFormatter.Deserialize(file);
-            
+
             //Load to component
-            Vector3 motion = new Vector3(saveData.playerPositionX, saveData.playerPositionY, saveData.playerPositionZ) - playerPosition;
-            characterController.Move(motion);
+            characterController.enabled = false;
+            playerTransform.position = new Vector3(saveData.playerPositionX, saveData.playerPositionY, saveData.playerPositionZ);
+            characterController.enabled = true;
             cameraRotateY.localEulerAngles = new Vector3(cameraRotateY.localEulerAngles.x, saveData.cameraRotationY, cameraRotateY.localEulerAngles.z);
             cameraRotateZ.localEulerAngles = new Vector3(cameraRotateZ.localEulerAngles.x, cameraRotateZ.localEulerAngles.y, saveData.cameraRotationZ);
             modelRotate.localEulerAngles = new Vector3(modelRotate.localEulerAngles.x, saveData.modelRotation, modelRotate.localEulerAngles.z);
