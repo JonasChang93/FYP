@@ -11,14 +11,14 @@ public class PlayerData : MonoBehaviour
 
     public bool isPlayer;
 
-    public float attack;
-    public float defense;
-
-    float curHealth = 100;
-    float maxHealth = 100;
-    float exp;
-    float maxExp = 10;
-    float levels;
+    [HideInInspector] public float attack;
+    [HideInInspector] public float defense;
+    [HideInInspector] public float curHealth = 100;
+    [HideInInspector] public float maxHealth = 100;
+    [HideInInspector] public float exp;
+    [HideInInspector] public float maxExp = 10;
+    [HideInInspector] public float levels;
+    
     bool levelUP;
 
     public static PlayerData instance;

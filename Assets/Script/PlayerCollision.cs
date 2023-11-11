@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class PlayerCollision : MonoBehaviour
 {
+    public PlayerAnimator playerAnimator;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        playerAnimator = GetComponent<PlayerAnimator>();
     }
 
     // Update is called once per frame
@@ -18,7 +20,12 @@ public class Player : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-
+        if (other.tag == "Enemy")
+        {
+            EnemyBeAttack enemyBeAttack = other.GetComponent<EnemyBeAttack>();
+            enemyBeAttack.BeAttack();
+            playerAnimator.Attack(enemyBeAttack.combo);
+        }
     }
 
     void OnTriggerExit(Collider other)

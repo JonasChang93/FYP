@@ -18,6 +18,25 @@ public class PlayerAnimator : MonoBehaviour
         
     }
 
+    public void Attack(int combo)
+    {
+        switch (combo)
+        {
+            case 0:
+                animator.Play("Attack1");
+                break;
+            case 1:
+                animator.Play("Attack2");
+                break;
+            case 2:
+                animator.Play("Attack3");
+                break;
+            default:
+                animator.Play("Attack1");
+                break;
+        }
+    }
+
     public float Movement(bool grounded)
     {
         if ((Input.GetKey(KeyCode.LeftShift) && grounded) && (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0))
