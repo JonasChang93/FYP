@@ -6,6 +6,12 @@ public class PlayerAnimator : MonoBehaviour
 {
     Animator animator;
 
+    float timer = 0.5f;
+    bool timerOnOff = false;
+
+    public bool isAttacking = false;
+    public float timerCooldown = 0.5f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,26 +21,59 @@ public class PlayerAnimator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (timerOnOff)
+        {
+            timer += -Time.deltaTime;
+            if (timer <= 0)
+            {
+                timerOnOff = false;
+                timer = 0;
+            }
+        }
     }
 
     public void Attack(int combo)
     {
+        if (!isAttacking)
+        {
+            isAttacking = true;
+            StartCoroutine(Attacking(combo));
+        }
+    }
+
+    IEnumerator Attacking(int combo)
+    {
         switch (combo)
         {
-            case 0:
-                animator.Play("Attack1");
-                break;
             case 1:
-                animator.Play("Attack2");
+                timerOnOff = false;
+                yield return new WaitForSeconds(timer);
+                timer = timerCooldown;
+                animator.Play("Attack1");
+                yield return new WaitForSeconds(0.5f);
+                timerOnOff = true;
                 break;
             case 2:
+                timerOnOff = false;
+                yield return new WaitForSeconds(timer);
+                timer = timerCooldown;
+                animator.Play("Attack2");
+                yield return new WaitForSeconds(0.5f);
+                timerOnOff = true;
+                break;
+            case 3:
+                timerOnOff = false;
+                yield return new WaitForSeconds(timer);
+                timer = timerCooldown;
                 animator.Play("Attack3");
+                yield return new WaitForSeconds(1);
+                timerOnOff = true;
                 break;
             default:
-                animator.Play("Attack1");
+                Debug.Log("combo = 0");
                 break;
         }
+        isAttacking = false;
     }
 
     public float Movement(bool grounded)

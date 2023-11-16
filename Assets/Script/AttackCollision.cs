@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCollision : MonoBehaviour
+public class AttackCollision : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -18,7 +18,7 @@ public class PlayerCollision : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        
+
     }
 
     void OnTriggerExit(Collider other)
@@ -28,7 +28,11 @@ public class PlayerCollision : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-
+        if (other.tag == "Enemy")
+        {
+            EnemyBeAttack enemyBeAttack = other.GetComponent<EnemyBeAttack>();
+            enemyBeAttack.BeAttack();
+        }
     }
 
     void OnCollisionEnter(Collision collision)

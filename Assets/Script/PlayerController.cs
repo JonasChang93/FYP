@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     CharacterController characterController;
     PlayerAnimator playerAnimator;
+    PlayerCombo playerCombo;
 
     Vector3 veloctity;
     Vector3 veloctityXZ;
@@ -27,6 +28,7 @@ public class PlayerController : MonoBehaviour
     {
         characterController = GetComponent<CharacterController>();
         playerAnimator = GetComponent<PlayerAnimator>();
+        playerCombo = GetComponent<PlayerCombo>();
     }
 
     // Update is called once per frame
@@ -34,10 +36,19 @@ public class PlayerController : MonoBehaviour
     {
         if (Time.timeScale != 0)
         {
+            Attack();
             Move();
             Jump();
             ModelRotation();
             CameraRotation();
+        }
+    }
+
+    void Attack()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0) && isGrounded)
+        {
+            playerAnimator.Attack(playerCombo.GetCombo());
         }
     }
 
