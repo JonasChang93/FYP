@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerAnimator : MonoBehaviour
 {
+    PlayerController playerController;
     Animator animator;
 
     float timer = 0.5f;
@@ -16,6 +17,7 @@ public class PlayerAnimator : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        playerController = GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
@@ -50,6 +52,7 @@ public class PlayerAnimator : MonoBehaviour
                 yield return new WaitForSeconds(timer);
                 timer = timerCooldown;
                 animator.Play("Attack1");
+                playerController.AttackMovement(1);
                 yield return new WaitForSeconds(0.5f);
                 timerOnOff = true;
                 break;
@@ -58,6 +61,7 @@ public class PlayerAnimator : MonoBehaviour
                 yield return new WaitForSeconds(timer);
                 timer = timerCooldown;
                 animator.Play("Attack2");
+                playerController.AttackMovement(1);
                 yield return new WaitForSeconds(0.5f);
                 timerOnOff = true;
                 break;
@@ -66,6 +70,7 @@ public class PlayerAnimator : MonoBehaviour
                 yield return new WaitForSeconds(timer);
                 timer = timerCooldown;
                 animator.Play("Attack3");
+                playerController.AttackMovement(1.5f);
                 yield return new WaitForSeconds(1);
                 timerOnOff = true;
                 break;

@@ -8,6 +8,8 @@ public class PlayerCombo : MonoBehaviour
     float comboCooldown;
     int combo;
 
+    public bool isAttacking = false;
+
     private void Start()
     {
         playerAnimator = GetComponent<PlayerAnimator>();
@@ -15,6 +17,7 @@ public class PlayerCombo : MonoBehaviour
 
     void Update()
     {
+        //Debug.Log(comboCooldown);
         if (!playerAnimator.isAttacking)
         {
             comboCooldown += Time.deltaTime;
@@ -22,11 +25,13 @@ public class PlayerCombo : MonoBehaviour
             {
                 comboCooldown = 0;
                 combo = 0;
+                isAttacking = false;
             }
         }
         else
         {
             comboCooldown = 0;
+            isAttacking = true;
         }
     }
 
