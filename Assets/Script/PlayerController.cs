@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -55,15 +56,20 @@ public class PlayerController : MonoBehaviour
    public void AttackMovement(float attackDuration)
     {
         veloctityXZ = Vector3.zero;
-        StartCoroutine(AttackCoroutine(attackDuration));
+        Vector3 targetPosition = model.TransformPoint(model.localPosition + new Vector3(0, 0, 2));
+        StartCoroutine(AttackCoroutine(attackDuration, targetPosition));
     }
 
-    IEnumerator AttackCoroutine(float attackDuration)
+    IEnumerator AttackCoroutine(float attackDuration, Vector3 targetPosition)
     {
-        for (int i = 0; i < attackDuration * 60; i++)
+        float durationCounter = 0;
+        while (durationCounter < attackDuration)
         {
-            characterController.Move(model.forward * attackDuration / 60);
-            yield return new WaitForSeconds(attackDuration / 60);
+            Debug.Log(durationCounter);
+            Vector3 smoothedPosition = Vector3.Slerp(transform.position, targetPosition, Time.deltaTime * 2);
+            characterController.Move(smoothedPosition - transform.position);
+            durationCounter += Time.deltaTime;
+            yield return null;
         }
     }
 
