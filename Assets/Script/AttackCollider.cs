@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class EnemyBeAttack : MonoBehaviour
+public class AttackCollider : MonoBehaviour
 {
     private void Start()
     {

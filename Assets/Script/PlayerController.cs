@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     float movingSpeed = 10;
     float jumpForce = 5;
     float currentRotationAngle;
-    float groundedCounter;
+    int groundedCounter;
     float jumpCooldown;
 
     // Start is called before the first frame update
@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
         float durationCounter = 0;
         while (durationCounter < attackDuration)
         {
-            Debug.Log(durationCounter);
+            //Debug.Log(durationCounter);
             Vector3 smoothedPosition = Vector3.Slerp(transform.position, targetPosition, Time.deltaTime * 2);
             characterController.Move(smoothedPosition - transform.position);
             durationCounter += Time.deltaTime;
@@ -183,7 +183,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject != gameObject)
         {
-            groundedCounter += 1;
+            groundedCounter++;
             isGrounded = true;
         }
     }
@@ -192,7 +192,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject != gameObject)
         {
-            groundedCounter += -1;
+            groundedCounter--;
 
             if (groundedCounter <= 0)
             {
