@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7982088429296081796}
   - component: {fileID: 6760781980340967217}
+  - component: {fileID: 4888473503264678050}
   - component: {fileID: 1955145169447100645}
   m_Layer: 0
   m_Name: AttackBox
@@ -44,7 +45,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e68a4e70d065b8f409b6c2ed9d9795af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  combo: 0
+--- !u!114 &4888473503264678050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2841643146997188920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8294b510708c2ec49b510a2cd3805164, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!65 &1955145169447100645
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -54,7 +66,7 @@ BoxCollider:
   m_GameObject: {fileID: 2841643146997188920}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 0.5, z: 1}
   m_Center: {x: 0, y: 1, z: 1}
@@ -184,7 +196,7 @@ MonoBehaviour:
   healthBar: {fileID: 0}
   expBar: {fileID: 0}
   levelUI: {fileID: 0}
-  isPlayer: 0
+  isPlayer: 1
   attack: 0
   defense: 0
   curHealth: 100
@@ -219,7 +231,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0209aa33bfab34b40a750872c26383f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackCollider: {fileID: 4888473503264678050}
   isAttacking: 0
+  timerCooldown: 0.5
 --- !u!114 &7855701393729288324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,6 +246,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4325e301047409946bbe1c28fc1512cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackCollider: {fileID: 4888473503264678050}
+  isAttacking: 0
 --- !u!114 &3232191790649582070
 MonoBehaviour:
   m_ObjectHideFlags: 0

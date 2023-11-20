@@ -7,7 +7,9 @@ public class PlayerAnimator : MonoBehaviour
     PlayerController playerController;
     Animator animator;
 
-    float timer = 0.5f;
+    public AttackCollider attackCollider;
+
+    float timer;
     bool timerOnOff = false;
 
     public bool isAttacking = false;
@@ -23,6 +25,7 @@ public class PlayerAnimator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //timer for attack delay
         if (timerOnOff)
         {
             timer += -Time.deltaTime;
@@ -49,29 +52,107 @@ public class PlayerAnimator : MonoBehaviour
         {
             case 1:
                 timerOnOff = false;
-                yield return new WaitForSeconds(timer);
+                float waittingCounter = 0;
+                while (waittingCounter < timer)
+                {
+                    waittingCounter += Time.deltaTime;
+                    if (!playerController.isGrounded)
+                    {
+                        timer = 0;
+                        isAttacking = false;
+                        yield break;
+                    }
+                    yield return null;
+                }
+                //yield return new WaitForSeconds(timer);
+                attackCollider.AttackEnd();
                 timer = timerCooldown;
                 animator.Play("Attack1");
                 playerController.AttackMovement(1);
-                yield return new WaitForSeconds(0.5f);
+                attackCollider.AttackStart();
+                waittingCounter = 0;
+                while (waittingCounter < 0.5f)
+                {
+                    waittingCounter += Time.deltaTime;
+                    if (!playerController.isGrounded)
+                    {
+                        timer = 0;
+                        isAttacking = false;
+                        yield break;
+                    }
+                    yield return null;
+                }
+                //yield return new WaitForSeconds(0.5f);
                 timerOnOff = true;
                 break;
             case 2:
                 timerOnOff = false;
-                yield return new WaitForSeconds(timer);
+                waittingCounter = 0;
+                while (waittingCounter < timer)
+                {
+                    waittingCounter += Time.deltaTime;
+                    if (!playerController.isGrounded)
+                    {
+                        timer = 0;
+                        isAttacking = false;
+                        yield break;
+                    }
+                    yield return null;
+                }
+                //yield return new WaitForSeconds(timer);
+                attackCollider.AttackEnd();
                 timer = timerCooldown;
                 animator.Play("Attack2");
                 playerController.AttackMovement(1);
-                yield return new WaitForSeconds(0.5f);
+                attackCollider.AttackStart();
+                waittingCounter = 0;
+                while (waittingCounter < 0.5f)
+                {
+                    waittingCounter += Time.deltaTime;
+                    if (!playerController.isGrounded)
+                    {
+                        timer = 0;
+                        isAttacking = false;
+                        yield break;
+                    }
+                    yield return null;
+                }
+                //yield return new WaitForSeconds(0.5f);
                 timerOnOff = true;
                 break;
             case 3:
                 timerOnOff = false;
-                yield return new WaitForSeconds(timer);
+                waittingCounter = 0;
+                while (waittingCounter < timer)
+                {
+                    waittingCounter += Time.deltaTime;
+                    if (!playerController.isGrounded)
+                    {
+                        timer = 0;
+                        isAttacking = false;
+                        yield break;
+                    }
+                    yield return null;
+                }
+                //yield return new WaitForSeconds(timer);
+                attackCollider.AttackEnd();
                 timer = timerCooldown;
                 animator.Play("Attack3");
                 playerController.AttackMovement(1.5f);
-                yield return new WaitForSeconds(1);
+                attackCollider.AttackStart();
+                waittingCounter = 0;
+                while (waittingCounter < 1)
+                {
+                    waittingCounter += Time.deltaTime;
+                    if (!playerController.isGrounded)
+                    {
+                        timer = 0;
+                        isAttacking = false;
+                        yield break;
+                    }
+                    yield return null;
+                }
+                //yield return new WaitForSeconds(1);
                 timerOnOff = true;
                 break;
             default:

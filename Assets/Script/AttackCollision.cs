@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class AttackCollision : MonoBehaviour
 {
-    PlayerCombo playerCombo;
-
     // Start is called before the first frame update
     void Start()
     {
-        playerCombo = GetComponent<PlayerCombo>();
+        
     }
 
     // Update is called once per frame
@@ -22,17 +20,14 @@ public class AttackCollision : MonoBehaviour
     {
         if (other.tag == "Enemy")
         {
-            if (playerCombo.isAttacking)
-            {
-                EnemyType1Data enemyType1Data = other.GetComponent<EnemyType1Data>();
-                enemyType1Data.DeductHealth(10);
-            }
+            EnemyType1Data enemyType1Data = other.GetComponent<EnemyType1Data>();
+            enemyType1Data.DeductHealth(10);
         }
     }
 
     void OnTriggerExit(Collider other)
     {
-
+        
     }
 
     void OnTriggerStay(Collider other)

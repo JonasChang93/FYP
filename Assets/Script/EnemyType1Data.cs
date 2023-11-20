@@ -28,6 +28,7 @@ public class EnemyType1Data : MonoBehaviour
 
     public void DeductHealth(float health)
     {
+        Debug.Log("1");
         curHealth -= health;
         curHealth = Mathf.Max(curHealth, 0f);
         healthBar.value = curHealth / maxHealth;
@@ -40,7 +41,6 @@ public class EnemyType1Data : MonoBehaviour
             }
             else
             {
-                //isAttacking = false;
                 Destroy(gameObject);
             }
         }

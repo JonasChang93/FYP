@@ -5,6 +5,8 @@ public class PlayerCombo : MonoBehaviour
 {
     PlayerAnimator playerAnimator;
 
+    public AttackCollider attackCollider;
+
     float comboCooldown;
     int combo;
     bool cooldownOnOff = false;
@@ -18,11 +20,6 @@ public class PlayerCombo : MonoBehaviour
 
     void Update()
     {
-        Cooldown();
-    }
-
-    void Cooldown()
-    {
         if (cooldownOnOff)
         {
             if (!playerAnimator.isAttacking)
@@ -30,10 +27,7 @@ public class PlayerCombo : MonoBehaviour
                 comboCooldown += Time.deltaTime;
                 if (comboCooldown >= playerAnimator.timerCooldown)
                 {
-                    comboCooldown = 0;
-                    combo = 0;
-                    isAttacking = false;
-                    cooldownOnOff = false;
+                    CleanupCombo();
                 }
             }
             else
@@ -43,6 +37,15 @@ public class PlayerCombo : MonoBehaviour
             }
             //Debug.Log(comboCooldown);
         }
+    }
+
+    public void CleanupCombo()
+    {
+        comboCooldown = 0;
+        combo = 0;
+        isAttacking = false;
+        cooldownOnOff = false;
+        attackCollider.AttackEnd();   
     }
 
     public int GetCombo()

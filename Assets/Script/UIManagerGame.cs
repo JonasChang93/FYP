@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class UI_ManagerGame : MonoBehaviour
+public class UIManagerGame : MonoBehaviour
 {
     public GameObject black;
     public GameObject escapeDialogue;

@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     public Transform CameraRotateY;
     public Transform CameraRotateZ;
 
-    bool isGrounded;
+    public bool isGrounded;
     float movingSpeed = 10;
     float jumpForce = 5;
     float currentRotationAngle;
@@ -65,8 +65,7 @@ public class PlayerController : MonoBehaviour
         float durationCounter = 0;
         while (durationCounter < attackDuration)
         {
-            //Debug.Log(durationCounter);
-            Vector3 smoothedPosition = Vector3.Slerp(transform.position, targetPosition, Time.deltaTime * 2);
+            Vector3 smoothedPosition = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * 2);
             characterController.Move(smoothedPosition - transform.position);
             durationCounter += Time.deltaTime;
             yield return null;
@@ -121,7 +120,7 @@ public class PlayerController : MonoBehaviour
             jumpCooldown = 1;
 
             veloctity.y += -10 * Time.deltaTime;
-
+            playerCombo.CleanupCombo();
             playerAnimator.Falling();
         }
 
