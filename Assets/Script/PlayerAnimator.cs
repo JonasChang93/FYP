@@ -49,8 +49,8 @@ public class PlayerAnimator : MonoBehaviour
     IEnumerator Attacking(int combo)
     {
         timerOnOff = false;
+        //waitTime before animation start(input time)
         float waitTime = 0;
-
         while (waitTime < timer)
         {
             waitTime += Time.deltaTime;
@@ -58,13 +58,14 @@ public class PlayerAnimator : MonoBehaviour
             {
                 timer = 0;
                 isAttacking = false;
+                playerController.isAttacking = false;
                 yield break;
             }
             yield return null;
         }
 
-        attackCollider.AttackEnd();
         timer = timerCooldown;
+        attackCollider.AttackEnd();
 
         float extraWaitTime = 0;
 
@@ -72,17 +73,17 @@ public class PlayerAnimator : MonoBehaviour
         {
             case 1:
                 animator.Play("Attack1");
-                playerController.AttackMovement(1);
+                playerController.AttackMovement();
                 extraWaitTime = 0.5f;
                 break;
             case 2:
                 animator.Play("Attack2");
-                playerController.AttackMovement(1);
+                playerController.AttackMovement();
                 extraWaitTime = 0.5f;
                 break;
             case 3:
                 animator.Play("Attack3");
-                playerController.AttackMovement(1.5f);
+                playerController.AttackMovement();
                 extraWaitTime = 1;
                 break;
             default:
@@ -90,9 +91,10 @@ public class PlayerAnimator : MonoBehaviour
                 break;
         }
 
+        playerController.isAttacking = true;
         attackCollider.AttackStart();
+        //waitTime after animation start(basic timer)
         waitTime = 0;
-
         while (waitTime < extraWaitTime)
         {
             waitTime += Time.deltaTime;
@@ -100,6 +102,7 @@ public class PlayerAnimator : MonoBehaviour
             {
                 timer = 0;
                 isAttacking = false;
+                playerController.isAttacking = false;
                 yield break;
             }
             yield return null;

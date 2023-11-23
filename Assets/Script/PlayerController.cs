@@ -12,11 +12,13 @@ public class PlayerController : MonoBehaviour
 
     Vector3 veloctity;
     Vector3 veloctityXZ;
+    Vector3 targetPosition;
 
     public Transform model;
     public Transform CameraRotateY;
     public Transform CameraRotateZ;
 
+    public bool isAttacking = false;
     public bool isGrounded;
     float movingSpeed = 10;
     float jumpForce = 5;
@@ -43,6 +45,7 @@ public class PlayerController : MonoBehaviour
             ModelRotation();
             CameraRotation();
         }
+        Debug.Log(groundedCounter);
     }
 
     void Attack()
@@ -51,16 +54,24 @@ public class PlayerController : MonoBehaviour
         {
             playerAnimator.Attack(playerCombo.GetCombo());
         }
+
+        if (isAttacking && playerCombo.isAttacking)
+        {
+            Vector3 smoothedPosition = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * 2);
+            characterController.Move(smoothedPosition - transform.position);
+        }
     }
 
-   public void AttackMovement(float attackDuration)
-    {
+    public void AttackMovement()
+     {
         veloctityXZ = Vector3.zero;
-        Vector3 targetPosition = model.TransformPoint(model.localPosition + new Vector3(0, 0, 2));
-        StartCoroutine(AttackCoroutine(attackDuration, targetPosition));
-    }
 
-    IEnumerator AttackCoroutine(float attackDuration, Vector3 targetPosition)
+        Vector3 targetPosition = model.TransformPoint(model.localPosition + new Vector3(0, 0, 2));
+        this.targetPosition = targetPosition;
+         //StartCoroutine(AttackCoroutine(attackDuration, targetPosition));
+     }
+
+    /**IEnumerator AttackCoroutine(float attackDuration, Vector3 targetPosition)
     {
         float durationCounter = 0;
         while (durationCounter < attackDuration)
@@ -70,7 +81,7 @@ public class PlayerController : MonoBehaviour
             durationCounter += Time.deltaTime;
             yield return null;
         }
-    }
+    }**/
 
     void Move()
     {

@@ -30,7 +30,7 @@ public class EnemyAIMovement : MonoBehaviour
 
         if (distance < alertRadius)
         {
-            // Look at player
+            //Look at player
             Vector3 forwardDir = Vector3.Normalize(transform.forward);
             Vector3 playerDir = Vector3.Normalize(playerPosition - transform.position);
             forwardDir.y = 0;
@@ -41,7 +41,7 @@ public class EnemyAIMovement : MonoBehaviour
 
             if (distance < attackRadius)
             {
-                // Attack
+                //Attack
                 animator.SetBool("isWalking", false);
                 if (!isAttacking)
                 {
@@ -53,14 +53,14 @@ public class EnemyAIMovement : MonoBehaviour
             }
             else
             {
-                // Walk towards player
+                //Walk towards player
                 animator.SetBool("isWalking", true);
                 agent.SetDestination(playerPosition);
             }
         }
         else
         {
-            // Do nothing
+            //Do nothing
             animator.SetBool("isWalking", false);
             agent.ResetPath();
         }
@@ -68,7 +68,7 @@ public class EnemyAIMovement : MonoBehaviour
 
     IEnumerator Attacking()
     {
-        // Wait then reduce health
+        //Wait then reduce health
         yield return new WaitForSeconds(0.5f);
         PlayerData.instance.DeductHealth(attack);
         yield return new WaitForSeconds(0.5f);
