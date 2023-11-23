@@ -48,119 +48,67 @@ public class PlayerAnimator : MonoBehaviour
 
     IEnumerator Attacking(int combo)
     {
+        timerOnOff = false;
+        float waitTime = 0;
+
+        while (waitTime < timer)
+        {
+            waitTime += Time.deltaTime;
+            if (!playerController.isGrounded)
+            {
+                timer = 0;
+                isAttacking = false;
+                yield break;
+            }
+            yield return null;
+        }
+
+        attackCollider.AttackEnd();
+        timer = timerCooldown;
+
+        float extraWaitTime = 0;
+
         switch (combo)
         {
             case 1:
-                timerOnOff = false;
-                float waittingCounter = 0;
-                while (waittingCounter < timer)
-                {
-                    waittingCounter += Time.deltaTime;
-                    if (!playerController.isGrounded)
-                    {
-                        timer = 0;
-                        isAttacking = false;
-                        yield break;
-                    }
-                    yield return null;
-                }
-                //yield return new WaitForSeconds(timer);
-                attackCollider.AttackEnd();
-                timer = timerCooldown;
                 animator.Play("Attack1");
                 playerController.AttackMovement(1);
-                attackCollider.AttackStart();
-                waittingCounter = 0;
-                while (waittingCounter < 0.5f)
-                {
-                    waittingCounter += Time.deltaTime;
-                    if (!playerController.isGrounded)
-                    {
-                        timer = 0;
-                        isAttacking = false;
-                        yield break;
-                    }
-                    yield return null;
-                }
-                //yield return new WaitForSeconds(0.5f);
-                timerOnOff = true;
+                extraWaitTime = 0.5f;
                 break;
             case 2:
-                timerOnOff = false;
-                waittingCounter = 0;
-                while (waittingCounter < timer)
-                {
-                    waittingCounter += Time.deltaTime;
-                    if (!playerController.isGrounded)
-                    {
-                        timer = 0;
-                        isAttacking = false;
-                        yield break;
-                    }
-                    yield return null;
-                }
-                //yield return new WaitForSeconds(timer);
-                attackCollider.AttackEnd();
-                timer = timerCooldown;
                 animator.Play("Attack2");
                 playerController.AttackMovement(1);
-                attackCollider.AttackStart();
-                waittingCounter = 0;
-                while (waittingCounter < 0.5f)
-                {
-                    waittingCounter += Time.deltaTime;
-                    if (!playerController.isGrounded)
-                    {
-                        timer = 0;
-                        isAttacking = false;
-                        yield break;
-                    }
-                    yield return null;
-                }
-                //yield return new WaitForSeconds(0.5f);
-                timerOnOff = true;
+                extraWaitTime = 0.5f;
                 break;
             case 3:
-                timerOnOff = false;
-                waittingCounter = 0;
-                while (waittingCounter < timer)
-                {
-                    waittingCounter += Time.deltaTime;
-                    if (!playerController.isGrounded)
-                    {
-                        timer = 0;
-                        isAttacking = false;
-                        yield break;
-                    }
-                    yield return null;
-                }
-                //yield return new WaitForSeconds(timer);
-                attackCollider.AttackEnd();
-                timer = timerCooldown;
                 animator.Play("Attack3");
                 playerController.AttackMovement(1.5f);
-                attackCollider.AttackStart();
-                waittingCounter = 0;
-                while (waittingCounter < 1)
-                {
-                    waittingCounter += Time.deltaTime;
-                    if (!playerController.isGrounded)
-                    {
-                        timer = 0;
-                        isAttacking = false;
-                        yield break;
-                    }
-                    yield return null;
-                }
-                //yield return new WaitForSeconds(1);
-                timerOnOff = true;
+                extraWaitTime = 1;
                 break;
             default:
                 Debug.Log("combo = 0");
                 break;
         }
+
+        attackCollider.AttackStart();
+        waitTime = 0;
+
+        while (waitTime < extraWaitTime)
+        {
+            waitTime += Time.deltaTime;
+            if (!playerController.isGrounded)
+            {
+                timer = 0;
+                isAttacking = false;
+                yield break;
+            }
+            yield return null;
+        }
+
+        timerOnOff = true;
         isAttacking = false;
     }
+
 
     public float Movement(bool grounded)
     {

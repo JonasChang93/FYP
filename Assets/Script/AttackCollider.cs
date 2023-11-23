@@ -16,10 +16,10 @@ public class AttackCollider : MonoBehaviour
 
     public void AttackStart()
     {
-        //collider.enabled = true;
+        collider.enabled = true;
     }
     public void AttackEnd()
     {
-        //collider.enabled = false;
+        collider.enabled = false;
     }
 }

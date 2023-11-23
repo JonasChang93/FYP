@@ -111,7 +111,7 @@ public class PlayerController : MonoBehaviour
 
         if (isGrounded)
         {
-            veloctity.y = 0;
+            veloctity.y = -10;
 
             playerAnimator.Landing();
         }
@@ -120,8 +120,9 @@ public class PlayerController : MonoBehaviour
             jumpCooldown = 1;
 
             veloctity.y += -10 * Time.deltaTime;
-            playerCombo.CleanupCombo();
+
             playerAnimator.Falling();
+            playerCombo.CleanupCombo();
         }
 
         characterController.Move(veloctity * Time.deltaTime);
@@ -180,7 +181,7 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject != gameObject)
+        if (other.tag != "Player")
         {
             groundedCounter++;
             isGrounded = true;
@@ -189,7 +190,7 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (other.gameObject != gameObject)
+        if (other.tag != "Player")
         {
             groundedCounter--;
 

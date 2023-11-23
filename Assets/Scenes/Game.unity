@@ -106,7 +106,7 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.5
+    agentRadius: 0.4
     agentHeight: 2
     agentSlope: 45
     agentClimb: 0.4
@@ -114,7 +114,7 @@ NavMeshSettings:
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.16666667
+    cellSize: 0.13333334
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 6fa798a788a93574baf56a2f4ace4b24, type: 2}
 --- !u!1 &30992963
 GameObject:
   m_ObjectHideFlags: 0
@@ -977,7 +977,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!64 &1345547192
 MeshCollider:
@@ -1476,11 +1476,11 @@ GameObject:
   - component: {fileID: 1500352636}
   - component: {fileID: 1500352635}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Wall1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!65 &1500352635
 BoxCollider:
@@ -2084,11 +2084,11 @@ GameObject:
   - component: {fileID: 1834690164}
   - component: {fileID: 1834690163}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: Wall2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!65 &1834690163
 BoxCollider:
@@ -2397,14 +2397,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player2
       objectReference: {fileID: 0}
-    - target: {fileID: 8215880210256867539, guid: 2f37e0f49760176499597a7533750e51, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8215880210256867539, guid: 2f37e0f49760176499597a7533750e51, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f37e0f49760176499597a7533750e51, type: 3}
 --- !u!1001 &3446183279410952611
@@ -2414,6 +2406,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 726194695, guid: 9e5a30cfc2765e847b8fa51422efb2ce, type: 3}
+      propertyPath: alertRadius
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 726194695, guid: 9e5a30cfc2765e847b8fa51422efb2ce, type: 3}
+      propertyPath: attackRadius
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3446183279867650982, guid: 9e5a30cfc2765e847b8fa51422efb2ce, type: 3}
       propertyPath: m_Name
       value: EnemyType1

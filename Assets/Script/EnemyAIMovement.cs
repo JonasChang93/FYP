@@ -1,25 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyAIMovement : MonoBehaviour
 {
-    public float alertRadius;
-    public float attackRadius;
+    float alertRadius = 10;
+    float attackRadius = 2;
+    float turningSpeed = 2;
 
-    public float movingSpeed = 0.05f;
-    public float turningSpeed = 2f;
+    bool isAttacking = false;
+    float attack = 5;
 
-    public bool isAttacking = false;
-    public float attack = 5f;
-
-    CharacterController characterController;
     Animator animator;
+    NavMeshAgent agent;
+
     // Start is called before the first frame update
     void Start()
     {
-        characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        agent = GetComponent<NavMeshAgent>();
     }
 
     // Update is called once per frame
@@ -30,12 +30,14 @@ public class EnemyAIMovement : MonoBehaviour
 
         if (distance < alertRadius)
         {
-            //Look at player
+            // Look at player
             Vector3 forwardDir = Vector3.Normalize(transform.forward);
             Vector3 playerDir = Vector3.Normalize(playerPosition - transform.position);
+            forwardDir.y = 0;
+            playerDir.y = 0;
             float angle = Vector3.Angle(forwardDir, playerDir);
-            Vector3 tagetDir = Vector3.Slerp(forwardDir, playerDir, turningSpeed / angle);
-            transform.LookAt(transform.position + tagetDir);
+            Vector3 targetDir = Vector3.Slerp(forwardDir, playerDir, turningSpeed / angle);
+            transform.LookAt(transform.position + targetDir);
 
             if (distance < attackRadius)
             {
@@ -46,27 +48,27 @@ public class EnemyAIMovement : MonoBehaviour
                     animator.Play("Attack");
                     isAttacking = true;
                     StartCoroutine(Attacking());
+                    agent.ResetPath();
                 }
             }
             else
             {
                 // Walk towards player
-                Vector3 motion = transform.forward * movingSpeed;
-
                 animator.SetBool("isWalking", true);
-                characterController.Move(motion);
+                agent.SetDestination(playerPosition);
             }
         }
         else
         {
             // Do nothing
             animator.SetBool("isWalking", false);
+            agent.ResetPath();
         }
     }
 
     IEnumerator Attacking()
     {
-        //Wait then reduce health
+        // Wait then reduce health
         yield return new WaitForSeconds(0.5f);
         PlayerData.instance.DeductHealth(attack);
         yield return new WaitForSeconds(0.5f);
@@ -76,7 +78,7 @@ public class EnemyAIMovement : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.blue;
+        Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, alertRadius);
 
         Gizmos.color = Color.red;
