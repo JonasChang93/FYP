@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerCombo : MonoBehaviour
 {
     PlayerAnimator playerAnimator;
+    PlayerController playerController;
 
     public AttackCollider attackCollider;
 
@@ -16,6 +17,7 @@ public class PlayerCombo : MonoBehaviour
     private void Start()
     {
         playerAnimator = GetComponent<PlayerAnimator>();
+        playerController = GetComponent<PlayerController>();
     }
 
     void Update()
@@ -45,6 +47,7 @@ public class PlayerCombo : MonoBehaviour
         combo = 0;
         isAttacking = false;
         cooldownOnOff = false;
+        playerController.isAttacking = false;
         attackCollider.AttackEnd();   
     }
 

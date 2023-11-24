@@ -1,10 +1,10 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAnimator : MonoBehaviour
 {
     PlayerController playerController;
+    PlayerCombo playerCombo;
     Animator animator;
 
     public AttackCollider attackCollider;
@@ -19,6 +19,7 @@ public class PlayerAnimator : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        playerCombo = GetComponent<PlayerCombo>();
         playerController = GetComponent<PlayerController>();
     }
 
@@ -58,7 +59,7 @@ public class PlayerAnimator : MonoBehaviour
             {
                 timer = 0;
                 isAttacking = false;
-                playerController.isAttacking = false;
+                playerCombo.CleanupCombo();
                 yield break;
             }
             yield return null;
@@ -102,7 +103,7 @@ public class PlayerAnimator : MonoBehaviour
             {
                 timer = 0;
                 isAttacking = false;
-                playerController.isAttacking = false;
+                playerCombo.CleanupCombo();
                 yield break;
             }
             yield return null;

@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -20,11 +16,16 @@ public class PlayerController : MonoBehaviour
 
     public bool isAttacking = false;
     public bool isGrounded;
+
     float movingSpeed = 10;
     float jumpForce = 5;
-    float currentRotationAngle;
-    int groundedCounter;
     float jumpCooldown;
+
+    float currentRotationAngle;
+
+    float GroundedOffset = -0.15f;
+    float GroundedRadius = 0.25f;
+    public LayerMask GroundLayers;
 
     // Start is called before the first frame update
     void Start()
@@ -39,13 +40,37 @@ public class PlayerController : MonoBehaviour
     {
         if (Time.timeScale != 0)
         {
+            GroundedCheck();
             Attack();
             Move();
             Jump();
             ModelRotation();
             CameraRotation();
         }
-        Debug.Log(groundedCounter);
+        Debug.Log(veloctityXZ);
+    }
+
+    public void GroundedCheck()
+    {
+        // set sphere position, with offset
+        Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset,
+            transform.position.z);
+        isGrounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers,
+            QueryTriggerInteraction.Ignore);
+    }
+
+    public void OnDrawGizmosSelected()
+    {
+        Color transparentGreen = new Color(0.0f, 1.0f, 0.0f, 0.35f);
+        Color transparentRed = new Color(1.0f, 0.0f, 0.0f, 0.35f);
+
+        if (isGrounded) Gizmos.color = transparentGreen;
+        else Gizmos.color = transparentRed;
+
+        // when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
+        Gizmos.DrawSphere(
+            new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z),
+            GroundedRadius);
     }
 
     void Attack()
@@ -122,9 +147,12 @@ public class PlayerController : MonoBehaviour
 
         if (isGrounded)
         {
-            veloctity.y = -10;
+            if (veloctity.y <= 0)
+            {
+                veloctity.y = -10;
 
-            playerAnimator.Landing();
+                playerAnimator.Landing();
+            }
         }
         else
         {
@@ -133,7 +161,6 @@ public class PlayerController : MonoBehaviour
             veloctity.y += -10 * Time.deltaTime;
 
             playerAnimator.Falling();
-            playerCombo.CleanupCombo();
         }
 
         characterController.Move(veloctity * Time.deltaTime);
@@ -187,28 +214,6 @@ public class PlayerController : MonoBehaviour
         {
             //Debug.Log("270");
             return 270 - xRotation;
-        }
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.tag != "Player")
-        {
-            groundedCounter++;
-            isGrounded = true;
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.tag != "Player")
-        {
-            groundedCounter--;
-
-            if (groundedCounter <= 0)
-            {
-                isGrounded = false;
-            }
         }
     }
 }

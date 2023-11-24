@@ -972,7 +972,7 @@ GameObject:
   - component: {fileID: 1345547194}
   - component: {fileID: 1345547193}
   - component: {fileID: 1345547192}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1475,7 +1475,7 @@ GameObject:
   - component: {fileID: 1500352637}
   - component: {fileID: 1500352636}
   - component: {fileID: 1500352635}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wall1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2083,7 +2083,7 @@ GameObject:
   - component: {fileID: 1834690165}
   - component: {fileID: 1834690164}
   - component: {fileID: 1834690163}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wall2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2418,6 +2418,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyType1
       objectReference: {fileID: 0}
+    - target: {fileID: 3446183279867650982, guid: 9e5a30cfc2765e847b8fa51422efb2ce, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3446183279867650984, guid: 9e5a30cfc2765e847b8fa51422efb2ce, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -2464,11 +2468,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3446183280830699751, guid: 9e5a30cfc2765e847b8fa51422efb2ce, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3446183280830699751, guid: 9e5a30cfc2765e847b8fa51422efb2ce, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e5a30cfc2765e847b8fa51422efb2ce, type: 3}
