@@ -6,8 +6,8 @@ public class PlayerController : MonoBehaviour
     PlayerAnimator playerAnimator;
     PlayerCombo playerCombo;
 
-    Vector3 veloctity;
-    Vector3 veloctityXZ;
+    Vector3 velocity;
+    Vector3 velocityXZ;
     Vector3 targetPosition;
 
     public Transform model;
@@ -16,15 +16,15 @@ public class PlayerController : MonoBehaviour
 
     public bool isAttacking = false;
     public bool isGrounded;
+    bool topCollision;
 
-    float movingSpeed = 10;
+    float movingSpeed = 2;
     float jumpForce = 5;
     float jumpCooldown;
 
     float currentRotationAngle;
 
-    float GroundedOffset = -0.15f;
-    float GroundedRadius = 0.25f;
+    float SphereRadius = 0.25f;
     public LayerMask GroundLayers;
 
     // Start is called before the first frame update
@@ -40,37 +40,46 @@ public class PlayerController : MonoBehaviour
     {
         if (Time.timeScale != 0)
         {
-            GroundedCheck();
+            GroundCheck();
             Attack();
             Move();
             Jump();
             ModelRotation();
             CameraRotation();
         }
-        Debug.Log(veloctityXZ);
+        //Debug.Log(velocityXZ);
     }
 
-    public void GroundedCheck()
+    public void GroundCheck()
     {
         // set sphere position, with offset
-        Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset,
-            transform.position.z);
-        isGrounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers,
-            QueryTriggerInteraction.Ignore);
+        Vector3 spherePosition1 = new Vector3(transform.position.x, transform.position.y + 0.2f, transform.position.z);
+        isGrounded = Physics.CheckSphere(spherePosition1, SphereRadius, GroundLayers, QueryTriggerInteraction.Ignore);
+
+        Vector3 spherePosition2 = new Vector3(transform.position.x, transform.position.y + 1.6f, transform.position.z);
+        topCollision = Physics.CheckSphere(spherePosition2, SphereRadius, GroundLayers, QueryTriggerInteraction.Collide);
+        if (topCollision) velocity.y = 0;
     }
 
     public void OnDrawGizmosSelected()
     {
-        Color transparentGreen = new Color(0.0f, 1.0f, 0.0f, 0.35f);
-        Color transparentRed = new Color(1.0f, 0.0f, 0.0f, 0.35f);
+        //Top sphere
+        Color transparentGreen1 = new Color(0.0f, 1.0f, 0.0f, 0.35f);
+        Color transparentRed1 = new Color(1.0f, 0.0f, 0.0f, 0.35f);
 
-        if (isGrounded) Gizmos.color = transparentGreen;
-        else Gizmos.color = transparentRed;
+        if (topCollision) Gizmos.color = transparentGreen1;
+        else Gizmos.color = transparentRed1;
 
-        // when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
-        Gizmos.DrawSphere(
-            new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z),
-            GroundedRadius);
+        Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y + 1.6f, transform.position.z), SphereRadius);
+
+        //Bottom sphere
+        Color transparentGreen2 = new Color(0.0f, 1.0f, 0.0f, 0.35f);
+        Color transparentRed2 = new Color(1.0f, 0.0f, 0.0f, 0.35f);
+
+        if (isGrounded) Gizmos.color = transparentGreen2;
+        else Gizmos.color = transparentRed2;
+
+        Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y + 0.2f, transform.position.z), SphereRadius);
     }
 
     void Attack()
@@ -89,7 +98,7 @@ public class PlayerController : MonoBehaviour
 
     public void AttackMovement()
      {
-        veloctityXZ = Vector3.zero;
+        velocityXZ = Vector3.zero;
 
         Vector3 targetPosition = model.TransformPoint(model.localPosition + new Vector3(0, 0, 2));
         this.targetPosition = targetPosition;
@@ -113,17 +122,18 @@ public class PlayerController : MonoBehaviour
         if (isGrounded && !playerCombo.isAttacking)
         {
             Vector3 motion = -CameraRotateY.right * Input.GetAxisRaw("Vertical") * movingSpeed + CameraRotateY.forward * Input.GetAxisRaw("Horizontal") * movingSpeed;
-            veloctityXZ = Vector3.Lerp(veloctityXZ, motion * playerAnimator.Movement(isGrounded), Time.deltaTime * 4);
+            velocityXZ = Vector3.Lerp(velocityXZ, motion * playerAnimator.Movement(isGrounded), Time.deltaTime * 4);
 
-            characterController.Move(veloctityXZ * Time.deltaTime);
+            characterController.Move(velocityXZ * Time.deltaTime);
         }
         else if (!playerCombo.isAttacking)
         {
-            veloctityXZ = Vector3.Lerp(veloctityXZ, Vector3.zero, Time.deltaTime );
+            velocityXZ = Vector3.Lerp(velocityXZ, Vector3.zero, Time.deltaTime);
             playerAnimator.Movement(isGrounded);
 
-            characterController.Move(veloctityXZ * Time.deltaTime);
+            //characterController.Move(velocityXZ * Time.deltaTime);
         }
+        characterController.Move(velocityXZ * Time.deltaTime + velocity * Time.deltaTime);
     }
 
     void Jump()
@@ -137,7 +147,7 @@ public class PlayerController : MonoBehaviour
         {
             if (jumpCooldown <= 0)
             {
-                veloctity.y = jumpForce;
+                velocity.y = jumpForce;
 
                 isGrounded = false;
 
@@ -147,9 +157,9 @@ public class PlayerController : MonoBehaviour
 
         if (isGrounded)
         {
-            if (veloctity.y <= 0)
+            if (velocity.y <= 0)
             {
-                veloctity.y = -10;
+                velocity.y = -10;
 
                 playerAnimator.Landing();
             }
@@ -158,12 +168,12 @@ public class PlayerController : MonoBehaviour
         {
             jumpCooldown = 1;
 
-            veloctity.y += -10 * Time.deltaTime;
+            velocity.y += -10 * Time.deltaTime;
 
             playerAnimator.Falling();
         }
 
-        characterController.Move(veloctity * Time.deltaTime);
+        //characterController.Move(velocity * Time.deltaTime);
     }
 
     // Rotate when you WASD
@@ -214,6 +224,14 @@ public class PlayerController : MonoBehaviour
         {
             //Debug.Log("270");
             return 270 - xRotation;
+        }
+    }
+
+    void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject != gameObject && !isGrounded)
+        {
+            velocityXZ = Vector3.zero;
         }
     }
 }
