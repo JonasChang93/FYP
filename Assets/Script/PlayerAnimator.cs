@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAnimator : MonoBehaviour
@@ -9,8 +10,15 @@ public class PlayerAnimator : MonoBehaviour
 
     public AttackCollider attackCollider;
 
+    int combo;
+    float extraWaitTime;
+    float waitTime;
+
+    float extraTimer;
     float timer;
     bool timerOnOff = false;
+
+    bool waitOnOff = true;
 
     public bool isAttacking = false;
     public float timerCooldown = 0.5f;
@@ -36,80 +44,73 @@ public class PlayerAnimator : MonoBehaviour
                 timer = 0;
             }
         }
+        Attack();
+        Debug.Log(waitTime);
     }
 
-    public void Attack(int combo)
+    public void StartAttack()
     {
-        if (!isAttacking)
-        {
-            isAttacking = true;
-            StartCoroutine(Attacking(combo));
-        }
+        combo = playerCombo.GetCombo();
+        isAttacking = true;
     }
 
-    IEnumerator Attacking(int combo)
+    void Attack()
     {
-        timerOnOff = false;
-        //waitTime before animation start(input time)
-        float waitTime = 0;
-        while (waitTime < timer)
+        if (isAttacking)
         {
+            timerOnOff = false;
             waitTime += Time.deltaTime;
             if (!playerController.isGrounded)
             {
                 timer = 0;
+                waitTime = 0;
+                extraWaitTime = 0;
+                waitOnOff = true;
                 isAttacking = false;
                 playerCombo.CleanupCombo();
-                yield break;
             }
-            yield return null;
-        }
-
-        timer = timerCooldown;
-        attackCollider.AttackEnd();
-
-        float extraWaitTime = 0;
-
-        switch (combo)
-        {
-            case 1:
-                animator.Play("Attack1");
-                extraWaitTime = 0.5f;
-                break;
-            case 2:
-                animator.Play("Attack2");
-                extraWaitTime = 0.5f;
-                break;
-            case 3:
-                animator.Play("Attack3");
-                extraWaitTime = 1;
-                break;
-            default:
-                Debug.Log("combo = 0");
-                break;
-        }
-
-        playerController.AttackMovement();
-        attackCollider.AttackStart();
-        //waitTime after animation start(basic timer)
-        waitTime = 0;
-        while (waitTime < extraWaitTime)
-        {
-            waitTime += Time.deltaTime;
-            if (!playerController.isGrounded)
+            else if (waitTime >= timer)
             {
-                timer = 0;
-                isAttacking = false;
-                playerCombo.CleanupCombo();
-                yield break;
+                if (waitOnOff)
+                {
+                    waitOnOff = false;
+                    attackCollider.AttackEnd();
+
+                    switch (combo)
+                    {
+                        case 1:
+                            animator.Play("Attack1");
+                            extraTimer = 0.5f;
+                            break;
+                        case 2:
+                            animator.Play("Attack2");
+                            extraTimer = 0.5f;
+                            break;
+                        case 3:
+                            animator.Play("Attack3");
+                            extraTimer = 1;
+                            break;
+                        default:
+                            Debug.Log("combo = 0");
+                            break;
+                    }
+
+                    playerController.AttackMovement();
+                    attackCollider.AttackStart();
+                }
+                extraWaitTime += Time.deltaTime;
+                if (extraWaitTime >= extraTimer)
+                {
+                    timer = timerCooldown;
+                    waitTime = 0;
+                    extraWaitTime = 0;
+                    waitOnOff = true;
+                    timerOnOff = true;
+                    isAttacking = false;
+                }
             }
-            yield return null;
         }
-
-        timerOnOff = true;
-        isAttacking = false;
     }
-
 
     public float Speed(bool grounded)
     {

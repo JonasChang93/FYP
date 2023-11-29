@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
             ModelRotation();
             CameraRotation();
         }
-        Debug.Log(sideCollision);
+        //Debug.Log(sideCollision);
     }
 
     public void GroundCheck()
@@ -102,7 +102,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0) && isGrounded)
         {
-            playerAnimator.Attack(playerCombo.GetCombo());
+            playerAnimator.StartAttack();
         }
     }
 
