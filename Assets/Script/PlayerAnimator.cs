@@ -74,17 +74,14 @@ public class PlayerAnimator : MonoBehaviour
         {
             case 1:
                 animator.Play("Attack1");
-                playerController.AttackMovement();
                 extraWaitTime = 0.5f;
                 break;
             case 2:
                 animator.Play("Attack2");
-                playerController.AttackMovement();
                 extraWaitTime = 0.5f;
                 break;
             case 3:
                 animator.Play("Attack3");
-                playerController.AttackMovement();
                 extraWaitTime = 1;
                 break;
             default:
@@ -92,7 +89,7 @@ public class PlayerAnimator : MonoBehaviour
                 break;
         }
 
-        playerController.isAttacking = true;
+        playerController.AttackMovement();
         attackCollider.AttackStart();
         //waitTime after animation start(basic timer)
         waitTime = 0;
@@ -114,7 +111,7 @@ public class PlayerAnimator : MonoBehaviour
     }
 
 
-    public float Movement(bool grounded)
+    public float Speed(bool grounded)
     {
         if ((Input.GetKey(KeyCode.LeftShift) && grounded) && (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0))
         {

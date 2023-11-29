@@ -2337,18 +2337,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 330833319331597269, guid: 2f37e0f49760176499597a7533750e51, type: 3}
-      propertyPath: m_Height
-      value: 1.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 330833319331597269, guid: 2f37e0f49760176499597a7533750e51, type: 3}
-      propertyPath: m_Radius
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 330833319331597269, guid: 2f37e0f49760176499597a7533750e51, type: 3}
-      propertyPath: m_Center.y
-      value: 0.9
-      objectReference: {fileID: 0}
     - target: {fileID: 1288872173289866136, guid: 2f37e0f49760176499597a7533750e51, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -2393,14 +2381,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2837230163037552845, guid: 2f37e0f49760176499597a7533750e51, type: 3}
-      propertyPath: m_Constraints
-      value: 126
-      objectReference: {fileID: 0}
-    - target: {fileID: 2837230163037552845, guid: 2f37e0f49760176499597a7533750e51, type: 3}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2856784335648908249, guid: 2f37e0f49760176499597a7533750e51, type: 3}
       propertyPath: expBar
       value: 
@@ -2413,18 +2393,6 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 1646822660}
-    - target: {fileID: 3080072414485806712, guid: 2f37e0f49760176499597a7533750e51, type: 3}
-      propertyPath: m_Height
-      value: 1.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3080072414485806712, guid: 2f37e0f49760176499597a7533750e51, type: 3}
-      propertyPath: m_Radius
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 3080072414485806712, guid: 2f37e0f49760176499597a7533750e51, type: 3}
-      propertyPath: m_Center.y
-      value: 0.9
-      objectReference: {fileID: 0}
     - target: {fileID: 3636463708558728047, guid: 2f37e0f49760176499597a7533750e51, type: 3}
       propertyPath: m_Name
       value: Player2
