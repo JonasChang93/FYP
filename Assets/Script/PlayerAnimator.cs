@@ -45,7 +45,7 @@ public class PlayerAnimator : MonoBehaviour
             }
         }
         Attack();
-        Debug.Log(waitTime);
+        //Debug.Log(waitTime);
     }
 
     public void StartAttack()

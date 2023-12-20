@@ -22,7 +22,7 @@ public class Interactable : MonoBehaviour
         Vector3 playerDir = Vector3.Normalize(player.TransformDirection(0, 0, 1));
         float cosAngle = Vector3.Dot(objectDir, playerDir);
 
-        if(Input.GetKeyDown(KeyCode.E) && distance < interactionRadius && cosAngle > interactionAngle)
+        if (Input.GetKeyDown(KeyCode.E) && distance < interactionRadius && cosAngle > interactionAngle)
         {
             Interact();
         }
