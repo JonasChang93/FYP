@@ -8,7 +8,7 @@ public class EnemyAIMovement : MonoBehaviour
 {
     Vector3 newPlayerPosition;
 
-    float alertRadius = 10;
+    float alertRadius = 16;
     float attackRadius = 2;
 
     bool isTracking = false;
@@ -42,39 +42,35 @@ public class EnemyAIMovement : MonoBehaviour
         Vector3 enemyDir = transform.forward;
         float cosAngle = Vector3.Dot(playerDir, enemyDir) * Mathf.Rad2Deg;
 
-        if (distance < alertRadius)
+        RaycastHit hit;
+        if (distance < alertRadius && Physics.Raycast(ray, out hit))
         {
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit) && hit.collider.tag == "Player" && cosAngle > 30)
+            if (Physics.Raycast(ray, out hit))
             {
-                isTracking = true;
-                newPlayerPosition = playerPosition;
-
-                if (distance < attackRadius)
+                if ((hit.collider.tag == "Player" && cosAngle > 30) || (hit.collider.tag == "Player" && isTracking))
                 {
-                    Rotate(enemyDir, playerDir);
-                    //Attack
-                    animator.SetBool("isWalking", false);
-                    if (!isAttacking)
+                    isTracking = true;
+                    newPlayerPosition = playerPosition;
+
+                    if (distance < attackRadius)
                     {
-                        isAttacking = true;
-                        animator.Play("Attack");
-                        StartCoroutine(Attacking());
-                        agent.ResetPath();
+                        Rotate(enemyDir, playerDir);
+                        //Attack
+                        animator.SetBool("isWalking", false);
+                        if (!isAttacking)
+                        {
+                            isAttacking = true;
+                            animator.Play("Attack");
+                            StartCoroutine(Attacking());
+                            agent.ResetPath();
+                        }
+                    }
+                    else
+                    {
+                        Walk();
                     }
                 }
-                else
-                {
-                    Walk();
-                }
-            }
-            else if (isTracking)
-            {
-                if (distance < attackRadius)
-                {
-                    Rotate(enemyDir, playerDir);
-                }
-                else
+                else if (isTracking)
                 {
                     Walk();
                     if (Vector3.Distance(transform.position, newPlayerPosition) < 0.1f)
@@ -82,12 +78,16 @@ public class EnemyAIMovement : MonoBehaviour
                         EndTeacking();
                     }
                 }
-            }
-            else
-            {
-                //Do nothing
-                animator.SetBool("isWalking", false);
-                agent.ResetPath();
+                else
+                {
+                    if (distance < attackRadius)
+                    {
+                        Rotate(enemyDir, playerDir);
+                    }
+                    //Do nothing
+                    animator.SetBool("isWalking", false);
+                    agent.ResetPath();
+                }
             }
         }
         else
@@ -106,7 +106,7 @@ public class EnemyAIMovement : MonoBehaviour
     void Rotate(Vector3 enemyDir, Vector3 playerDir)
     {
         //Rotate to player
-        Vector3 targetDir = Vector3.Slerp(enemyDir, playerDir, Time.deltaTime);
+        Vector3 targetDir = Vector3.Slerp(enemyDir, playerDir, Time.deltaTime * 2);
         targetDir.y = 0;
         transform.LookAt(transform.position + targetDir);
     }
@@ -118,6 +118,11 @@ public class EnemyAIMovement : MonoBehaviour
         //Do nothing
         animator.SetBool("isWalking", false);
         agent.ResetPath();
+    }
+
+    public void StartTeacking()
+    {
+        isTracking = true;
     }
 
     IEnumerator Attacking()

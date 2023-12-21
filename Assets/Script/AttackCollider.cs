@@ -4,7 +4,7 @@ using UnityEngine;
 public class AttackCollider : MonoBehaviour
 {
     new Collider collider;
-    private void Start()
+    void Start()
     {
         collider = GetComponent<Collider>();
     }
