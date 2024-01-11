@@ -25,7 +25,7 @@ public class SaveLoadGameManager : MonoBehaviour
     {
         playerTransform = GameObject.Find("Player2").GetComponent<Transform>();
         characterController = playerTransform.GetComponent<CharacterController>();
-        modelRotate = playerTransform.Find("ModelBox").Find("Armature").GetComponent<Transform>();
+        modelRotate = playerTransform.Find("ModelBox").Find("midOutput01").GetComponent<Transform>();
         cameraRotateY = playerTransform.Find("CameraRotateY").GetComponent<Transform>();
         cameraRotateZ = cameraRotateY.Find("CameraRotateZ").GetComponent<Transform>();
     }
