@@ -27,7 +27,7 @@ public class MainCamera : MonoBehaviour
         Ray ray = new Ray(origin, direction);
 
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, 7))
+        if (Physics.Raycast(ray, out hit))
         {
             hitPoint = hit.point;
         }
