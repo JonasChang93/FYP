@@ -207,6 +207,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5944419131362999356}
     m_Modifications:
+    - target: {fileID: -8771940557177058800, guid: edbbb157e4b62054f956741837fceba4, type: 3}
+      propertyPath: m_BlendShapeWeights.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: edbbb157e4b62054f956741837fceba4, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -257,7 +261,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 486294486648197188, guid: edbbb157e4b62054f956741837fceba4, type: 3}
       propertyPath: m_BlendShapeWeights.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 486294486648197188, guid: edbbb157e4b62054f956741837fceba4, type: 3}
       propertyPath: m_BlendShapeWeights.Array.data[0]
@@ -275,8 +279,19 @@ PrefabInstance:
       propertyPath: m_BlendShapeWeights.Array.data[0]
       value: 60
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 5866666021909216657, guid: edbbb157e4b62054f956741837fceba4, type: 3}
+    - target: {fileID: 5866666021909216657, guid: edbbb157e4b62054f956741837fceba4, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: ab6ac347b0abd7340be9f6f60c64928a, type: 2}
+    - target: {fileID: 5866666021909216657, guid: edbbb157e4b62054f956741837fceba4, type: 3}
+      propertyPath: m_CullingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: edbbb157e4b62054f956741837fceba4, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: edbbb157e4b62054f956741837fceba4, type: 3}
 --- !u!4 &55442941 stripped
 Transform:
@@ -2248,6 +2263,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1731170518}
   m_CullTransparentMesh: 1
+--- !u!1 &1785866705 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -5922873525809950623, guid: edbbb157e4b62054f956741837fceba4, type: 3}
+  m_PrefabInstance: {fileID: 55442940}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1785866708
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1785866705}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cb2b0936d28567541be7340a0151fb24, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1803037519
 GameObject:
   m_ObjectHideFlags: 0
@@ -2747,7 +2788,6 @@ GameObject:
   - component: {fileID: 3105844691412965239}
   - component: {fileID: 374902571276149466}
   - component: {fileID: 635759206268197999}
-  - component: {fileID: 3844998545482111822}
   m_Layer: 0
   m_Name: Player2
   m_TagString: Player
@@ -2874,27 +2914,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.5, z: 1}
   m_Center: {x: 0, y: 1, z: 1}
---- !u!95 &3844998545482111822
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2160080846580762573}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: edbbb157e4b62054f956741837fceba4, type: 3}
-  m_Controller: {fileID: 9100000, guid: ab6ac347b0abd7340be9f6f60c64928a, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &3937518865040247264
 Transform:
   m_ObjectHideFlags: 0
