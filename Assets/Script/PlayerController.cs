@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         characterController = GetComponent<CharacterController>();
-        playerAnimator = GetComponentInChildren<PlayerAnimator>();
+        playerAnimator = GetComponent<PlayerAnimator>();
         playerCombo = GetComponent<PlayerCombo>();
     }
 
