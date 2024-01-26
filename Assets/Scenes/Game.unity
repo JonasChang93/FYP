@@ -259,6 +259,10 @@ PrefabInstance:
       propertyPath: m_BlendShapeWeights.Array.size
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: -4496325241331530330, guid: edbbb157e4b62054f956741837fceba4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 486294486648197188, guid: edbbb157e4b62054f956741837fceba4, type: 3}
       propertyPath: m_BlendShapeWeights.Array.size
       value: 2
@@ -711,32 +715,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 135, y: 30, z: 0}
---- !u!1 &731813379 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2050224417873939990, guid: edbbb157e4b62054f956741837fceba4, type: 3}
-  m_PrefabInstance: {fileID: 55442940}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &731813382
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 731813379}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a12056c39d010cf42aa86383d2a7a283, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &838875033
 GameObject:
   m_ObjectHideFlags: 0
@@ -2263,32 +2241,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1731170518}
   m_CullTransparentMesh: 1
---- !u!1 &1785866705 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -5922873525809950623, guid: edbbb157e4b62054f956741837fceba4, type: 3}
-  m_PrefabInstance: {fileID: 55442940}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &1785866708
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1785866705}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: cb2b0936d28567541be7340a0151fb24, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1803037519
 GameObject:
   m_ObjectHideFlags: 0
