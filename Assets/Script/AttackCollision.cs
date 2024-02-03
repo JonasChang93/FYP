@@ -5,8 +5,8 @@ using UnityEngine;
 public class AttackCollision : MonoBehaviour
 {
     public GameObject Spark01;
-    float timer;
-    bool isAttacking;
+    //float timer;
+    //bool isAttacking;
     //bool inCollision = false;
 
     //float sphereRadius = 0.5f;
@@ -22,11 +22,11 @@ public class AttackCollision : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        StartTimer();
+        //StartTimer();
         //CollisionCheck();
     }
 
-    void StartTimer()
+    /**void StartTimer()
     {
         if (!isAttacking) return;
         timer += Time.deltaTime;
@@ -38,7 +38,7 @@ public class AttackCollision : MonoBehaviour
         }
     }
 
-    /**void CollisionCheck()
+    void CollisionCheck()
     {
         Vector3 spherePosition = transform.TransformPoint(new Vector3(0, 0, 0));
         bool groundLayers = false;
@@ -67,8 +67,9 @@ public class AttackCollision : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Spark01.SetActive(true);
-        isAttacking = true;
+        Instantiate(Spark01, transform.position, transform.rotation, transform.parent);
+        //Spark01.SetActive(true);
+        //isAttacking = true;
 
         if (other.tag == "Enemy")
         {
