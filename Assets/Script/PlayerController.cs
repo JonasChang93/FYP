@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
         //Debug.Log(sideCollision);
     }
 
-    public void GroundCheck()
+    void GroundCheck()
     {
         // set sphere position, with offset
         Vector3 spherePosition1 = new Vector3(transform.position.x, transform.position.y + 0.2f, transform.position.z);
@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
         if (sideCollision && velocity.y > 0) velocityXZ = Vector3.zero;
     }
 
-    public void OnDrawGizmosSelected()
+    void OnDrawGizmosSelected()
     {
         //Top sphere
         Color transparentGreen1 = new Color(0.0f, 1.0f, 0.0f, 0.35f);

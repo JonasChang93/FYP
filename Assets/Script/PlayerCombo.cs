@@ -6,7 +6,7 @@ public class PlayerCombo : MonoBehaviour
     PlayerAnimator playerAnimator;
     PlayerController playerController;
 
-    public AttackCollider attackCollider;
+    public Collider AttackBox;
 
     float comboCooldown;
     int combo;
@@ -48,7 +48,7 @@ public class PlayerCombo : MonoBehaviour
         isAttacking = false;
         cooldownOnOff = false;
         playerController.isAttacking = false;
-        attackCollider.AttackEnd();   
+        AttackBox.enabled = false;
     }
 
     public int GetCombo()

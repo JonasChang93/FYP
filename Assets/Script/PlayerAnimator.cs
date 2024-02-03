@@ -8,7 +8,7 @@ public class PlayerAnimator : MonoBehaviour
     PlayerCombo playerCombo;
     Animator animator;
 
-    public AttackCollider attackCollider;
+    public Collider AttackBox;
 
     int combo;
     float extraWaitTime;
@@ -74,7 +74,7 @@ public class PlayerAnimator : MonoBehaviour
                 if (waitOnOff)
                 {
                     waitOnOff = false;
-                    attackCollider.AttackEnd();
+                    AttackBox.enabled = false;
 
                     switch (combo)
                     {
@@ -96,7 +96,7 @@ public class PlayerAnimator : MonoBehaviour
                     }
 
                     playerController.AttackMovement();
-                    attackCollider.AttackStart();
+                    AttackBox.enabled = true;
                 }
                 extraWaitTime += Time.deltaTime;
                 if (extraWaitTime >= extraTimer)
