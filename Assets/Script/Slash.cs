@@ -4,18 +4,14 @@ using UnityEngine;
 
 public class Slash : MonoBehaviour
 {
-    public GameObject Trail;
-    public Transform ShashEffect01PL;
-    public GameObject slashLeft;
-    public Transform ShashEffect01PR;
-    public GameObject slashRight;
-    float waitTime;
-    float timerT;
-    bool isAttackingT;
-    float timerL;
-    bool isAttackingL;
-    float timerR;
-    bool isAttackingR;
+    public GameObject Trail01;
+    public GameObject Trail02;
+    public Transform AttackBox;
+    public GameObject Slash01;
+    public GameObject Slash02;
+    public Transform Player;
+    public GameObject Vortex01;
+    public GameObject Vortex02;
 
     // Start is called before the first frame update
     void Start()
@@ -26,79 +22,38 @@ public class Slash : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        StartTimerT();
-        StartTimerL();
-        StartTimerR();
+        
     }
 
-    void StartTimerT()
+    void TrailStart(float waitTime)
     {
-        if (!isAttackingT) return;
-        timerT += Time.deltaTime;
-        if (timerT >= waitTime)
+        switch (waitTime)
         {
-            waitTime = 0;
-            timerT = 0;
-            isAttackingT = false;
-            Trail.SetActive(false);
+            case 1:
+                Instantiate(Trail01, AttackBox.position, AttackBox.rotation, AttackBox.parent);
+                break;
+            case 1.5f:
+                Instantiate(Trail02, AttackBox.position, AttackBox.rotation, AttackBox.parent);
+                break;
         }
-    }
-
-    void StartTimerL()
-    {
-        if (!isAttackingL) return;
-        timerL += Time.deltaTime;
-        if (timerL >= 0.5)
-        {
-            timerL = 0;
-            isAttackingL = false;
-            slashLeft.SetActive(false);
-        }
-    }
-
-    void StartTimerR()
-    {
-        if (!isAttackingR) return;
-        timerR += Time.deltaTime;
-        if (timerR >= 0.5)
-        {
-            timerR = 0;
-            isAttackingR = false;
-            slashRight.SetActive(false);
-        }
-    }
-
-    void TrailStart(float waitingTime)
-    {
-        waitTime = waitingTime;
-        Trail.SetActive(true);
-        isAttackingT = true;
     }
 
     void SlashStart(int combo)
     {
+        Transform modelBox = transform.parent;
         switch (combo)
         {
             case 1:
-                slashRight.SetActive(true);
-                ShashEffect01PR.localPosition = new Vector3(0, 0.4f, 0.2f);
-                ShashEffect01PR.localRotation = Quaternion.Euler(0, 0, 45);
-                slashRight.transform.rotation = transform.parent.rotation;
-                isAttackingR = true;
+                Instantiate(Slash02, modelBox.TransformPoint(-0.3f, 1.5f, 0.3f), Quaternion.Euler(0, modelBox.eulerAngles.y, 45), Player);
+                Instantiate(Vortex02, modelBox.position, modelBox.rotation, Player);
                 break;
             case 2:
-                slashLeft.SetActive(true);
-                ShashEffect01PL.localPosition = new Vector3(0, 0.4f, 0.2f);
-                ShashEffect01PL.localRotation = Quaternion.Euler(0, 0, 15);
-                slashLeft.transform.rotation = transform.parent.rotation;
-                isAttackingL = true;
+                Instantiate(Slash01, modelBox.TransformPoint(0, 1.5f, 0.3f), Quaternion.Euler(0, modelBox.eulerAngles.y, 15), Player);
+                Instantiate(Vortex01, modelBox.position, modelBox.rotation, Player);
                 break;
             case 3:
-                slashLeft.SetActive(true);
-                ShashEffect01PL.localPosition = new Vector3(0, 0.4f, 0.2f);
-                ShashEffect01PL.localRotation = Quaternion.Euler(0, 0, 15);
-                slashLeft.transform.rotation = transform.parent.rotation;
-                isAttackingL = true;
+                Instantiate(Slash01, modelBox.TransformPoint(0, 1.5f, 0.3f), Quaternion.Euler(0, modelBox.eulerAngles.y, 20), Player);
+                Instantiate(Vortex01, modelBox.position, modelBox.rotation, Player);
                 break;
         }
     }
