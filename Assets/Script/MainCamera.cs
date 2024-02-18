@@ -8,6 +8,8 @@ public class MainCamera : MonoBehaviour
     Vector3 direction;
     Vector3 hitPoint;
 
+    public LayerMask ground;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +29,7 @@ public class MainCamera : MonoBehaviour
         Ray ray = new Ray(origin, direction);
 
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ground))
         {
             hitPoint = hit.point;
         }

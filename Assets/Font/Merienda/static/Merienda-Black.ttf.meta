@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: a84499b1364bb17479ccdd19141667bc
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Merienda
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: a5ac93d1abda34446a8602bb1f0fe1d2, type: 3}
+  - {fileID: 12800000, guid: 8696b10e523d5674c99333d11855d2d7, type: 3}
+  - {fileID: 12800000, guid: 84267b2edb56a384880d40695021f85d, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

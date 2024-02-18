@@ -1601,6 +1601,10 @@ PrefabInstance:
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 838875034}
+    - target: {fileID: 8810199626896033198, guid: fb4630a314f9b5943aecbf55ecd1879d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -7.5000153
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb4630a314f9b5943aecbf55ecd1879d, type: 3}
 --- !u!224 &1489696665 stripped
@@ -3143,6 +3147,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0ae8e6b86a294e47b0e0b5d823f0bc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ground:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &6633754293281469943
 GameObject:
   m_ObjectHideFlags: 0
