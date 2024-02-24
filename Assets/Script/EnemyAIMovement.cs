@@ -7,6 +7,10 @@ using static UnityEngine.UI.Image;
 public class EnemyAIMovement : MonoBehaviour
 {
     Vector3 newPlayerPosition;
+    Vector3 destination;
+    Vector3 location1 = new Vector3(0, 0, 10);
+    Vector3 location2 = new Vector3(0, 0, -10);
+    Vector3 location3 = new Vector3(10, 0, 10);
 
     float alertRadius = 16;
     float attackRadius = 2;
@@ -23,6 +27,8 @@ public class EnemyAIMovement : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
+
+        destination = location1;
     }
 
     // Update is called once per frame
@@ -43,7 +49,7 @@ public class EnemyAIMovement : MonoBehaviour
         float cosAngle = Vector3.Dot(playerDir, enemyDir) * Mathf.Rad2Deg;
 
         RaycastHit hit;
-        if (distance < alertRadius && Physics.Raycast(ray, out hit))
+        if (distance < alertRadius)
         {
             if (Physics.Raycast(ray, out hit))
             {
@@ -83,17 +89,47 @@ public class EnemyAIMovement : MonoBehaviour
                     if (distance < attackRadius)
                     {
                         Rotate(enemyDir, playerDir);
+
+                        //Do nothing
+                        animator.SetBool("isWalking", false);
+                        agent.ResetPath();
                     }
-                    //Do nothing
-                    animator.SetBool("isWalking", false);
-                    agent.ResetPath();
+                    else if (!isTracking)
+                    {
+                        Patrol();
+                    }
                 }
             }
         }
         else
         {
             EndTeacking();
+
+            Patrol();
         }
+    }
+
+    void Patrol()
+    {
+        //Patrol to destination
+        if (Vector3.Distance(transform.position, destination) < 0.1f)
+        {
+            if (destination == location1)
+            {
+                destination = location2;
+            }
+            else if (destination == location2)
+            {
+                destination = location3;
+            }
+            else if (destination == location3)
+            {
+                destination = location1;
+            }
+        }
+
+        animator.SetBool("isWalking", true);
+        agent.SetDestination(destination);
     }
 
     void Walk()
@@ -114,7 +150,6 @@ public class EnemyAIMovement : MonoBehaviour
     void EndTeacking()
     {
         isTracking = false;
-        Debug.Log(isTracking);
         //Do nothing
         animator.SetBool("isWalking", false);
         agent.ResetPath();
