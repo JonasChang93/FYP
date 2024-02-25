@@ -6,7 +6,7 @@ public class PlayerAnimator : MonoBehaviour
 {
     PlayerController playerController;
     PlayerCombo playerCombo;
-    Animator animator;
+    public Animator animator;
 
     public Collider AttackBox;
 
@@ -26,7 +26,6 @@ public class PlayerAnimator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponentInChildren<Animator>();
         playerCombo = GetComponent<PlayerCombo>();
         playerController = GetComponent<PlayerController>();
     }

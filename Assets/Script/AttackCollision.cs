@@ -5,6 +5,7 @@ using UnityEngine;
 public class AttackCollision : MonoBehaviour
 {
     public GameObject Spark01;
+    public Animator mainCamera;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +25,7 @@ public class AttackCollision : MonoBehaviour
 
         if (other.tag == "Enemy")
         {
+            mainCamera.Play("CameraShake");
             EnemyType1Data enemyType1Data = other.GetComponent<EnemyType1Data>();
             enemyType1Data.DeductHealth(10);
         }
